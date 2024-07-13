@@ -1,5 +1,3 @@
-const { obtenerJuegos } = require("../models/juegos.models");
-
 const queriesJuegos = {
 
     crearJuego: `INSERT INTO 
