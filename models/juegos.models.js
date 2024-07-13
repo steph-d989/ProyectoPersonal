@@ -1,5 +1,5 @@
 /**
- * @author Stephani Damiani <futurefest.com> 
+ * @author Stephani Damiani <borrowgames.com> 
  * @exports models
  * @namespace FuncionesJuegos
  */
@@ -35,8 +35,108 @@ const crearJuego = async (entry) => {
     return result
 };
 
+/**
+ * Descripción: Esta función elimina el usuario de la tabla usuarios
+ * @memberof FuncionesJuegos 
+ * @method borrarJuego
+ * @async
+ * @param {JSON} nombre - JSON con el email del usuario a eliminar
+ * @return {Integer} Devuelve el número de rows eliminadas en la tabla
+ * @throws {Error} Error de consulta a la BBDD
+ */
+const borrarJuego = async (nombre) => {
+    let client, result;
+    try {
+        client = await pool.connect();
+        const data = await client.query(queries.borrarJuego, [nombre])
+        result = data.rowCount;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        client.release();
+    }
+    return result
+};
+
+/**
+ * Descripción: Esta función muestra a todos los usuarios de la tabla users
+ * @memberof FuncionesJuegos 
+ * @method obtenerJuegos 
+ * @async 
+ * @return {Array} Devuelve array con todos los usuarios (objetos) de la tabla
+ * @throws {Error} Error de consulta a la BBDD
+ */
+const obtenerJuegos = async () => {
+    let client, result;
+    try {
+        client = await pool.connect();
+        const data = await client.query(queries.obtenerJuegos)
+        result = data.rows;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        client.release();
+    }
+    return result
+};
+
+/**
+ * Descripción: Esta función muestra a 10 usuarios de la tabla usuarios
+ * @memberof FuncionesJuegos 
+ * @method obtenerJuegosPaginacion 
+ * @async 
+ * @return {Array} Devuelve array con los 10 juegos (objetos) de la tabla para paginación
+ * @throws {Error} Error de consulta a la BBDD
+ */
+const obtenerJuegosPaginacion = async (pagina, porPagina) => {
+    let client, result;
+    try {
+        client = await pool.connect();
+        const offset = (pagina-1)*porPagina
+        const data = await client.query(queries.obtenerJuegosPaginacion, [porPagina, offset])
+        result = data.rows;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        client.release();
+    }
+    return result
+};
+
+/**
+ * Descripción: Esta función edita el campo role_name de la tabla Roles
+ * @memberof FuncionesJuegos 
+ * @method editarDisponibilidad 
+ * @async
+ * @param {JSON} entry - Un JSON con el nuevo nombre del juego y con la disponibilidad antigua.
+ * @return {Integer} Devuelve el número de rows editadas en la tabla
+ * @throws {Error} Error de consulta a la BBDD
+ */
+const editarDisponibilidad = async (entry) => {
+    const { nombre, disponibilidad } = entry;
+    let client, result;
+    try {
+        client = await pool.connect();
+        const data = await client.query(queries.editarDisponibilidad, [nombre, disponibilidad])
+        result = data.rowCount;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        client.release();
+    }
+    return result
+};
+
 module.exports = {
-    crearJuego
+    crearJuego,
+    borrarJuego,
+    obtenerJuegos,
+    obtenerJuegosPaginacion,
+    editarDisponibilidad
 }
 
 //PRUEBAS
@@ -53,9 +153,11 @@ module.exports = {
   }
 
 crearJuego(objJuego).then(data=>console.log(data)); */
-
+//borrarJuego('Catan').then(data=>console.log(data));
+//obtenerJuegos().then(data=>console.log(data))
 /*PRUEBA 2 */
-/*const objUpdate = {
-    newPass: "safafas9999",
-    email: 'juan@hotmail.com'
-}*/
+/* const objUpdate = {
+    disponibilidad: "true",
+    nombre: 'Catan'
+}
+editarDisponibilidad(objUpdate).then(data=>console.log(data)); */

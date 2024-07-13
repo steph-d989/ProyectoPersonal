@@ -11,7 +11,7 @@ CREATE TABLE Usuarios (
 /* Crear tabla de Juegos */
 CREATE TABLE Juegos (
     juego_id SERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
     descripcion TEXT,
     genero VARCHAR(50),
     numero_jugadores_min INT NOT NULL,
@@ -56,3 +56,81 @@ INSERT INTO juegos(nombre, descripcion, genero, numero_jugadores_min, numero_jug
 INSERT INTO Reservas (usuario_id, juego_id, fecha_devolucion)
     VALUES
         (1, 1, '2024-07-20')
+
+/* Borrar usuario por email */
+DELETE FROM 
+    usuarios 
+WHERE 
+    email = 'matorralesunidos@hotmail.com';
+
+/* Borrar juego por nombre */
+DELETE FROM 
+    juegos 
+WHERE 
+    nombre = 'catan';
+
+/* Obtener todos los usuarios */
+SELECT 
+    usuario_id,
+    nombre,
+    email,
+    rol,
+    is_logged
+FROM 
+    usuarios; 
+
+/* Obtener todos los juegos */
+SELECT 
+    *
+FROM 
+    juegos; 
+
+/* Obtener 10 usuarios para paginación */
+SELECT
+    usuario_id,
+    nombre,
+    email,
+    rol,
+    is_logged
+FROM
+    usuarios
+ORDER BY
+    nombre
+LIMIT 10 OFFSET 0;
+
+/* Obtener 10 juegos para paginación */
+SELECT
+    *
+FROM
+    juegos
+ORDER BY
+    nombre
+LIMIT 10 OFFSET 0;
+
+/* Obtener usuarios por Email */
+SELECT 
+    usuario_id,
+    nombre,
+    email,
+    rol,
+    is_logged
+FROM 
+    usuarios
+WHERE
+    email='steph_d@hotmail.com';
+
+/* Editar Rol por Email */
+UPDATE
+    usuarios
+SET 
+    rol=user
+WHERE 
+    email='steph_d@hotmail.com'
+
+/* Editar disponibilidad de juego por nombre */
+UPDATE
+    juegos
+SET 
+    disponibiliad='false'
+WHERE 
+    nombre='Catan'
