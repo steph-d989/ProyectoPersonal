@@ -3,7 +3,7 @@ CREATE TABLE Usuarios (
     usuario_id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    pass_hash VARCHAR(255) NOT NULL,  -- Cambié "pass-hash" a "pass_hash"
+    pass_hash VARCHAR(255) NOT NULL,
     rol VARCHAR(50) NOT NULL,
     is_logged BOOLEAN DEFAULT FALSE NOT NULL
 );
@@ -34,7 +34,7 @@ CREATE TABLE Reservas (
     FOREIGN KEY (juego_id) REFERENCES Juegos(juego_id)
 );
 
-/* Pobla tabla usuarios */
+/* Poblar tabla usuarios */
 INSERT INTO Usuarios(nombre, email, pass_hash, rol)
     VALUES 
         ('Stephani Damiani', 'steph_d@hotmail.com', '123456qwert', 'admin');
