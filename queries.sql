@@ -134,3 +134,45 @@ SET
     disponibiliad='false'
 WHERE 
     nombre='Catan'
+
+/* Crear reserva */
+INSERT INTO
+        reservas(usuario_id, juego_id, fecha_devolucion)
+    VALUES
+        ((SELECT
+            u.usuario_id
+        FROM
+            usuarios as u
+        WHERE
+            email='steph_d@hotmail.com'), 1, '2024-08-13')
+
+/* Borrar una reserva */
+DELETE FROM 
+        reservas
+WHERE
+    usuario_id = (SELECT 
+                    u.usuario_id
+                FROM 
+                    usuarios AS u
+                WHERE 
+                    u.email='steph_d@hotmail.com')
+AND 
+    juego_id = (SELECT 
+                    j.juego_id
+                FROM 
+                    juegos AS j
+                WHERE 
+                    j.nombre='Catan')
+
+/* Obtener reservas por email */
+SELECT
+        *
+FROM 
+    reservas AS r
+WHERE 
+    r.usuario_id=(SELECT 
+                    r.usuario_id 
+                FROM 
+                    usuarios AS u
+                WHERE 
+                    u.email=$1)
