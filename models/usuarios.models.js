@@ -118,14 +118,14 @@ const obtenerUsuariosEmail = async (email) => {
     try {
         client = await pool.connect();
         const data = await client.query(queries.obtenerUsuariosEmail, [email])
-        result = data.rows[0];
+        result = data.rows;
     } catch (err) {
         console.log(err);
         throw err;
     } finally {
         client.release();
     }
-    return result
+    return result || [];
 };
 
 /**
@@ -153,13 +153,39 @@ const editarUsuario = async (entry) => {
     return result
 };
 
+/**
+ * Descripción: Esta función edita la contraseña de un usuario en la tabla usuarios
+ * @memberof FuncionesUsuario 
+ * @method editarPass 
+ * @async
+ * @param {JSON} entry -Un JSON con el nuevo valor de pass_hash a modificar, más el email del usuario.
+ * @return {Object} Devuelve un objeto con el número de filas modificadas y el email del usuario
+ * @throws {Error} Error de consulta a la BBDD
+ */
+const editarPass = async (entry) => {
+    const { pass_hash, email } = entry;
+    let client, result;
+    try {
+        client = await pool.connect();
+        const data = await client.query(queries.editarPass, [pass_hash, email])
+        result = { rowCount: data.rowCount, email };
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        client.release();
+    }
+    return result
+};
+
 module.exports = {
     crearUsuario,
     borrarUsuario,
     obtenerUsuarios,
     obtenerUsuariosPaginacion,
     obtenerUsuariosEmail,
-    editarUsuario
+    editarUsuario,
+    editarPass
 }
 
 //PRUEBAS

@@ -42,6 +42,13 @@ const queriesUsuarios = {
     WHERE
         email=$1`,
 
+    editarPass: `UPDATE
+        usuarios
+    SET
+        pass_hash=$1
+    WHERE 
+        email=$2`,
+
     editarRol:`UPDATE
         usuarios
     SET 
