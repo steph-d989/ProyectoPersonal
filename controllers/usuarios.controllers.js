@@ -29,7 +29,7 @@ const crearUsuario = async (req, res) => {
 };
 
 /**
- * Descripción: Esta función llama desde la ruta /api/users:email? al modelo obtenerUsuariosEmail
+ * Descripción: Esta función llama desde la ruta /api/usuarios:email? al modelo obtenerUsuariosEmail
  * Este espera recibir por query o por body el email del usuario a buscar. Si no, mostrará todos los usuarios
  * @memberof ControllersUsuarios 
  * @method obtenerUsuarios

@@ -176,3 +176,11 @@ WHERE
                     usuarios AS u
                 WHERE 
                     u.email=$1)
+
+/* obtener juegos por nombre */
+SELECT 
+    *
+FROM 
+    juegos
+WHERE
+    nombre='Catan'

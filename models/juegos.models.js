@@ -83,6 +83,29 @@ const obtenerJuegos = async () => {
 };
 
 /**
+ * Descripción: Esta función muestra a todos los juegos de la tabla juegos
+ * @memberof FuncionesJuegos 
+ * @method obtenerJuegosNombre
+ * @async 
+ * @return {Array} Devuelve array con todos los juegos (objetos) de la tabla
+ * @throws {Error} Error de consulta a la BBDD
+ */
+const obtenerJuegosNombre = async () => {
+    let client, result;
+    try {
+        client = await pool.connect();
+        const data = await client.query(queries.obtenerJuegosNombre)
+        result = data.rows;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        client.release();
+    }
+    return result
+};
+
+/**
  * Descripción: Esta función muestra a 10 usuarios de la tabla usuarios
  * @memberof FuncionesJuegos 
  * @method obtenerJuegosPaginacion 
@@ -136,7 +159,8 @@ module.exports = {
     borrarJuego,
     obtenerJuegos,
     obtenerJuegosPaginacion,
-    editarDisponibilidad
+    editarDisponibilidad,
+    obtenerJuegosNombre
 }
 
 //PRUEBAS

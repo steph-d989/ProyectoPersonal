@@ -15,6 +15,13 @@ const queriesJuegos = {
         * 
     FROM
         juegos`,
+
+    obtenerJuegosNombre: `SELECT 
+        *
+    FROM 
+        juegos
+    WHERE
+        nombre=$1`,
     
     obtenerJuegosPaginacion: `SELECT
         *
