@@ -117,8 +117,8 @@ const obtenerJuegosPaginacion = async (pagina, porPagina) => {
     let client, result;
     try {
         client = await pool.connect();
-        const offset = (pagina-1)*porPagina
-        const data = await client.query(queries.obtenerJuegosPaginacion, [porPagina, offset])
+        const offset = (pagina - 1) * porPagina;
+        const data = await client.query(queries.obtenerJuegosPaginacion, [pagina, porPagina]);
         result = data.rows;
     } catch (err) {
         console.log(err);
@@ -126,7 +126,7 @@ const obtenerJuegosPaginacion = async (pagina, porPagina) => {
     } finally {
         client.release();
     }
-    return result
+    return result;
 };
 
 /**

@@ -1,9 +1,9 @@
 const queriesUsuarios = {
 
     crearUsuario: `INSERT INTO 
-    usuarios (nombre, email, pass_hash, rol)
+    usuarios (nombre, email, pass_hash)
     VALUES
-        ($1,$2,$3,$4)`,
+        ($1,$2,$3)`,
 
     borrarUsuario: `DELETE FROM 
         usuarios 

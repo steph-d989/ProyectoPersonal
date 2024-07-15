@@ -17,11 +17,11 @@ const queries = require('../queries/usuarios.queries');
  * @throws {Error} Error de consulta a la BBDD
  */
 const crearUsuario = async (entry) => {
-    let { nombre, email, pass_hash, rol } = entry;
+    let { nombre, email, pass_hash } = entry;
     let client, result;
     try {
         client = await pool.connect();
-        const data = await client.query(queries.crearUsuario, [nombre, email, pass_hash, rol])
+        const data = await client.query(queries.crearUsuario, [nombre, email, pass_hash ])
         console.log(data);
         result = data.rowCount;
     } catch (err) {
@@ -129,7 +129,7 @@ const obtenerUsuariosEmail = async (email) => {
 };
 
 /**
- * Descripción: Esta función edita el rol, el is_active o el is_logged de un usuario en la tabla users
+ * Descripción: Esta función edita el rol de un usuario en la tabla usuarios
  * @memberof FuncionesUsuario 
  * @method editarUsuario 
  * @async 

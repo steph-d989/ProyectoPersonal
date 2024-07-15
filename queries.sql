@@ -4,7 +4,7 @@ CREATE TABLE Usuarios (
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     pass_hash VARCHAR(255) NOT NULL,
-    rol VARCHAR(50) NOT NULL,
+    rol VARCHAR(50) DEFAULT 'user' NOT NULL,
     is_logged BOOLEAN DEFAULT FALSE NOT NULL
 );
 
@@ -19,8 +19,8 @@ CREATE TABLE Juegos (
     edad_recomendada INT,
     tiempo_juego VARCHAR(50),
     disponibilidad BOOLEAN DEFAULT TRUE NOT NULL,
-    video_url VARCHAR(255),
-    imagen VARCHAR(255)
+    video_url VARCHAR(1000),
+    imagen VARCHAR(1000)
 );
 
 /* Crear tabla de reservas */
@@ -166,16 +166,23 @@ AND
 
 /* Obtener reservas por email */
 SELECT
-        *
+    u.nombre AS usuario_nombre,
+    j.nombre AS juego_nombre,
+    r.fecha_reserva,
+    r.fecha_devolucion
 FROM 
     reservas AS r
+JOIN
+    usuarios AS u
+ON
+    r.usuario_id = u.usuario_id
+JOIN
+    juegos AS j
+ON
+    r.juego_id = j.juego_id
 WHERE 
-    r.usuario_id=(SELECT 
-                    r.usuario_id 
-                FROM 
-                    usuarios AS u
-                WHERE 
-                    u.email=$1)
+    u.email = "steph_d@hotmail.com";
+
 
 /* obtener juegos por nombre */
 SELECT 

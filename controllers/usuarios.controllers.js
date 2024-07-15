@@ -39,25 +39,25 @@ const crearUsuario = async (req, res) => {
  * @throws {Error} Error al buscar los/el usuario/s
  */
 const obtenerUsuarios = async (req, res) => {
-    let users;
+    let usuarios;
     try {
-        if (req.body.email || req.query.email) {
-            users = await usersEntry.obtenerUsuariosEmail(req.body.email || req.query.email);
-            if (!users || users.length === 0) {
-                users = await usersEntry.obtenerUsuarios();
+        if (req.body.email || req.params.email) {
+            usuarios = await usersEntry.obtenerUsuariosEmail(req.body.email || req.params.email);
+            if (!usuarios || usuarios.length === 0) {
+                usuarios = await usersEntry.obtenerUsuarios();
             }
         } else {
-            users = await usersEntry.obtenerUsuarios();
+            usuarios = await usersEntry.obtenerUsuarios();
         }
-        res.status(200).json(users);
+        res.status(200).json(usuarios);
     } catch (error) {
         res.status(500).json({ error: "Error en la BBDD" });
     }
 };
 
 /**
- * Descripción: Esta función llama desde la ruta /api/usuarios/:email? al modelo borrarUsuario
- * Este espera recibir por query o por body el email del usuario a eliminar. 
+ * Descripción: Esta función llama desde la ruta /api/usuarios/borrar/:email? al modelo borrarUsuario
+ * Este espera recibir por params o por body el email del usuario a eliminar. 
  * @memberof ControllersUsuarios 
  * @method borrarUsuario
  * @async 
@@ -66,17 +66,17 @@ const obtenerUsuarios = async (req, res) => {
  * @throws {Error} Error al eliminar el usuario
  */
 const borrarUsuario = async (req, res) => {
-    let user;
+    let usuarios;
     try {
         if (req.body.email) {
-            user = await usersEntry.borrarUsuario(req.body.email);
+            usuarios = await usersEntry.borrarUsuario(req.body.email);
             res.status(200).json({ message: `Se ha borrado el usuario ${req.body.email}.` });
-        } else if (req.query.email) {
-            user = await usersEntry.borrarUsuario(req.query.email);
-            res.status(200).json({ message: `Se ha borrado el usuario ${req.query.email}.` });
+        } else if (req.params.email) {
+            usuarios = await usersEntry.borrarUsuario(req.params.email);
+            res.status(200).json({ message: `Se ha borrado el usuario ${req.params.email}.` });
         }
     } catch (error) {
-        res.status(500).json({ error: "Error en la BBD" });
+        res.status(500).json({ error: "Error en la BBDD" });
     }
 };
 
@@ -92,17 +92,17 @@ const borrarUsuario = async (req, res) => {
  */
 const editarUsuario = async (req, res) => {
     console.log(req.body)
-   try {
-            console.log(req.body)
-            const response = await usersEntry.editarUsuario(req.body);
-            console.log(response)
-            res.status(201).json({
-                items_updated: response.rowCount,
-                message: `Se ha modificado el usuario ${response.email}`
-            });
-        } catch (error) {
-            res.status(500).json({ error: "Error en la BBDD" });
-        }
+    try {
+        console.log(req.body)
+        const response = await usersEntry.editarUsuario(req.body);
+        console.log(response)
+        res.status(201).json({
+            items_updated: response.rowCount,
+            message: `Se ha modificado el usuario ${response.email}`
+        });
+    } catch (error) {
+        res.status(500).json({ error: "Error en la BBDD" });
+    }
 };
 
 /**

@@ -43,12 +43,12 @@ const borrarJuego = async (req, res) => {
         if (req.body.nombre) {
             juego = await juegosEntry.borrarJuego(req.body.nombre);
             res.status(200).json({ message: `Se ha borrado el juego ${req.body.nombre}.` });
-        } else if (req.query.nombre) {
-            juego = await juegosEntry.borrarJuego(req.query.nombre);
-            res.status(200).json({ message: `Se ha borrado el juego ${req.query.nombre}.` });
+        } else if (req.params.nombre) {
+            juego = await juegosEntry.borrarJuego(req.params.nombre);
+            res.status(200).json({ message: `Se ha borrado el juego ${req.params.nombre}.` });
         }
     } catch (error) {
-        res.status(500).json({ error: "Error en la BBD" });
+        res.status(500).json({ error: "Error en la BBDD" });
     }
 };
 
@@ -104,9 +104,24 @@ const editarJuego = async (req, res) => {
         }
 };
 
+
+const obtenerJuegosPaginacion = async (req, res) => {
+    const pagina = parseInt(req.query.pagina) || 1;
+    const porPagina = parseInt(req.query.porPagina) || 10;
+
+    try {
+        const juegos = await juegosEntry.obtenerJuegosPaginacion(pagina, porPagina);
+        res.status(200).json(juegos);
+    } catch (error) {
+        res.status(500).json({ error: "Error en la BBDD" });
+    }
+};
+
+
 module.exports = {
     crearJuego,
     borrarJuego,
     obtenerJuegos,
-    editarJuego
+    editarJuego,
+    obtenerJuegosPaginacion
 };
