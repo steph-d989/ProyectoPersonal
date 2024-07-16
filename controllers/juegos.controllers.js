@@ -104,7 +104,16 @@ const editarJuego = async (req, res) => {
         }
 };
 
-
+/**
+ * Descripción: Esta función llama desde la ruta /api/juegos/paginacion al modelo obtenerJuegosPaginacion
+ * Este espera recibir por params la pagina y la cantidad de elementos por pagina.
+ * @memberof controllersJuegos 
+ * @method obtenerJuegosPaginacion
+ * @async 
+ * @param {Object} req objeto de petición HTTP de Express.
+ * @param {Object} res objeto de respuesta HTTP de Express.
+ * @throws {Error} Error en la BBDD
+ */
 const obtenerJuegosPaginacion = async (req, res) => {
     const pagina = parseInt(req.query.pagina) || 1;
     const porPagina = parseInt(req.query.porPagina) || 10;
