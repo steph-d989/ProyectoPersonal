@@ -1,0 +1,9 @@
+@import '../utils/mixins.scss';
+
+
+.main {
+    @include column;
+    align-items: center;
+    min-height:85vh;
+    padding:16px 0px;
+}
