@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get('/:email', reservaControllers.obtenerReservasEmail);
 router.delete('/borrar', reservaControllers.borrarReserva);
-router.put('/crear', reservaControllers.crearReservas);
+router.post('/crear', reservaControllers.crearReservas);
 
 module.exports = router;

@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/:nombre?', juegosControllers.obtenerJuegos);
 router.get('/paginacion', juegosControllers.obtenerJuegosPaginacion);
 router.delete('/borrar/:nombre', juegosControllers.borrarJuego);
-router.put('/crear', juegosControllers.crearJuego);
+router.post('/crear', juegosControllers.crearJuego);
 router.put('/editar', juegosControllers.editarJuego);
 
 module.exports = router;
