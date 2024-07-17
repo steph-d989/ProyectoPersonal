@@ -14,7 +14,7 @@ const JuegosDetalle = () => {
         if (resp.ok) {
           const data = await resp.json();
           if (data) {
-            setJuego(data); // Asignar el juego encontrado al estado
+            setJuego(data);
           } else {
             throw new Error(`Juego con nombre '${nombre}' no encontrado`);
           }
@@ -24,12 +24,12 @@ const JuegosDetalle = () => {
       } catch (error) {
         console.error("Error:", error);
       } finally {
-        setLoading(false); // Indicar que la carga ha finalizado, ya sea exitosa o con error
+        setLoading(false);
       }
     };
 
     getJuego();
-  }, [nombre]); // Dependencia 'nombre' para que se actualice cuando cambie
+  }, [nombre]); 
 
   if (loading) return <div>Cargando...</div>;
 
