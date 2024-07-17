@@ -1,26 +1,31 @@
-import { useContext } from 'react'
-import { Link } from "react-router-dom";
-import { ThemeContext } from '../../../context/ThemeContext'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import burgerIcon from "../../../assets/burger-icon.png";
 
 const Nav = () => {
-
-  const { theme } = useContext(ThemeContext)
-
   return (
-    <nav className={`nav-${theme}`}>
-      <input type="checkbox" id="menu" />
-      <label htmlFor="menu"><img src={`${burgerIcon}`} alt="burger" width="24px" /></label>
+    <nav className="nav">
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">Principal</Link>
         </li>
         <li>
-          <Link to="/travel">LogIn</Link>
+          <Link to="/juegos">Catálogo de Juegos</Link>
         </li>
         <li>
-          <Link to="/about">Registrar</Link>
+          <Link to="/reservas">Mis Reservas</Link>
+        </li>
+        <li>
+          <Link to="/usuario">Perfil</Link>
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/register">Register</Link>
+        </li>
+        <li>
+          <Link to="/admin">Admin Panel</Link>
         </li>
       </ul>
     </nav>
