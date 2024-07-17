@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import CardJuegos from "./CardJuegos";
+import Typography from '@mui/material/Typography';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const Catalogo = () => {
   const [juegos, setJuegos] = useState([]);
   const [juegosFiltrados, setJuegosFiltrados] = useState([]);
   const [filtroCategoria, setFiltroCategoria] = useState("");
   const [busqueda, setBusqueda] = useState("");
+  const [pagina, setPagina] = useState(1);
+  const [porPagina] = useState(9);
 
   useEffect(() => {
     const getJuegos = async () => {
@@ -28,38 +33,42 @@ const Catalogo = () => {
   }, []);
 
   useEffect(() => {
-    if (filtroCategoria !== "") {
-      const juegosFiltrados = juegos.filter(juego => juego.genero === filtroCategoria);
-      setJuegosFiltrados(juegosFiltrados);
-    } else {
-      setJuegosFiltrados(juegos); 
-    }
-  }, [filtroCategoria, juegos]);
+    let juegosFiltrados = juegos;
 
-  useEffect(() => {
+    if (filtroCategoria !== "") {
+      juegosFiltrados = juegosFiltrados.filter(juego => juego.genero === filtroCategoria);
+    }
+
     if (busqueda !== "") {
-      const juegosFiltrados = juegos.filter(juego =>
+      juegosFiltrados = juegosFiltrados.filter(juego =>
         juego.nombre.toLowerCase().includes(busqueda.toLowerCase())
       );
-      setJuegosFiltrados(juegosFiltrados);
-    } else {
-      setJuegosFiltrados(juegos);
     }
-  }, [busqueda, juegos]);
+
+    setJuegosFiltrados(juegosFiltrados);
+    setPagina(1);
+  }, [filtroCategoria, busqueda, juegos]);
 
   const handleChangeCategoria = (e) => {
     setFiltroCategoria(e.target.value);
     setBusqueda(""); 
   };
 
-
   const handleChangeBusqueda = (e) => {
     setBusqueda(e.target.value);
     setFiltroCategoria(""); 
   };
 
+  const handlePaginaChange = (event, value) => {
+    setPagina(value);
+  };
+
+  const indexOfLastJuego = pagina * porPagina;
+  const indexOfFirstJuego = indexOfLastJuego - porPagina;
+  const juegosActuales = juegosFiltrados.slice(indexOfFirstJuego, indexOfLastJuego);
+
   const pintarJuegos = () => {
-    return juegosFiltrados.map((juego) => <CardJuegos key={uuidv4()} juego={juego} />);
+    return juegosActuales.map((juego) => <CardJuegos key={uuidv4()} juego={juego} />);
   };
 
   return (
@@ -87,6 +96,19 @@ const Catalogo = () => {
       </div>
 
       <div className="catalogo-lista">{pintarJuegos()}</div>
+      
+      <div className="paginacion">
+        <Stack spacing={2}>
+          <Typography>Page: {pagina}</Typography>
+          <Pagination
+            count={Math.ceil(juegosFiltrados.length / porPagina)}
+            page={pagina}
+            onChange={handlePaginaChange}
+            variant="outlined"
+            shape="rounded"
+          />
+        </Stack>
+      </div>
     </div>
   );
 };
