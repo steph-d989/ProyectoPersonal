@@ -1,0 +1,48 @@
+.card-juegos {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    background-color: #fff;
+    text-align: center;
+  
+    &:hover {
+      transform: translateY(-5px);
+    }
+  
+    &__title {
+      font-size: 1.25rem;
+      margin: 10px 0;
+      color: #333;
+    }
+  
+    &__image {
+      width: 100%;
+      height: 200px; /* Establece una altura fija */
+      object-fit: cover; /* Mantiene la proporción de la imagen y recorta el exceso */
+      border-bottom: 1px solid #ddd;
+    }
+  
+    &__description,
+    &__genre {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 10px 20px;
+    }
+  
+    &__description {
+      font-weight: 300;
+    }
+  
+    &__genre {
+      font-style: italic;
+      color: #999;
+    }
+  }
+  
+  .card-juegos-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  

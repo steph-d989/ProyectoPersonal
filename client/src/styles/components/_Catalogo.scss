@@ -1,0 +1,92 @@
+// Estilos base para dispositivos móviles
+.catalogo-container {
+    padding: 20px;
+    
+    // Estilos para el filtro y la búsqueda
+    div {
+      margin-bottom: 10px;
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      select, input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+    }
+    
+    // Estilos para la lista de juegos
+    .catalogo-lista {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      
+      // Estilos para cada tarjeta de juego
+      .card-juegos {
+        background-color: #f0f0f0;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        
+        .card-juegos__title {
+          font-size: 18px;
+          margin-bottom: 10px;
+        }
+        
+        .card-juegos__image {
+          width: 100%;
+          border-radius: 4px;
+        }
+        
+        .card-juegos__description {
+          margin-top: 10px;
+          font-size: 14px;
+          color: #666;
+        }
+        
+        .card-juegos__genre {
+          margin-top: 5px;
+          font-size: 14px;
+          color: #888;
+        }
+      }
+    }
+  }
+  
+  // Media query para tablets y escritorios
+  @media (min-width: 768px) {
+    .catalogo-container {
+      padding: 40px;
+      
+      .catalogo-lista {
+        grid-template-columns: repeat(2, 1fr);
+        
+        .card-juegos {
+          .card-juegos__title {
+            font-size: 22px;
+          }
+        }
+      }
+    }
+  }
+  
+  // Media query para pantallas grandes (ej. laptops y escritorios amplios)
+  @media (min-width: 1024px) {
+    .catalogo-container {
+      .catalogo-lista {
+        grid-template-columns: repeat(3, 1fr);
+        
+        .card-juegos {
+          .card-juegos__title {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+  }
+  

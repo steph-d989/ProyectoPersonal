@@ -1,17 +1,17 @@
-import { BrowserRouter } from 'react-router-dom';
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import Header from "./components/Header"; 
+import Footer from "./components/Footer"; 
 import Main from "./components/Main";
 
 const App = () => {
   return (
-    <>
-        <BrowserRouter>
-          <Header />
-          <Main />
-          <Footer />
-        </BrowserRouter>
-    </>
+    <Router>
+      <Header /> 
+      <Main />
+      <Footer /> 
+    </Router>
   );
 };
-export default App
+
+export default App;
