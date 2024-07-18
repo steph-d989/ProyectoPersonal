@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import CardJuegos from "./CardJuegos";
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
@@ -16,7 +15,7 @@ const Catalogo = () => {
   useEffect(() => {
     const getJuegos = async () => {
       try {
-        const resp = await fetch("http://localhost:3000/api/juegos");
+        const resp = await fetch(`http://localhost:3000/api/juegos`);
         if (resp.ok) {
           const data = await resp.json();
           setJuegos(data);
@@ -35,11 +34,11 @@ const Catalogo = () => {
   useEffect(() => {
     let juegosFiltrados = juegos;
 
-    if (filtroCategoria !== "") {
+    if (filtroCategoria) {
       juegosFiltrados = juegosFiltrados.filter(juego => juego.genero === filtroCategoria);
     }
 
-    if (busqueda !== "") {
+    if (busqueda) {
       juegosFiltrados = juegosFiltrados.filter(juego =>
         juego.nombre.toLowerCase().includes(busqueda.toLowerCase())
       );
@@ -51,25 +50,19 @@ const Catalogo = () => {
 
   const handleChangeCategoria = (e) => {
     setFiltroCategoria(e.target.value);
-    setBusqueda(""); 
   };
 
   const handleChangeBusqueda = (e) => {
     setBusqueda(e.target.value);
-    setFiltroCategoria(""); 
   };
 
   const handlePaginaChange = (event, value) => {
     setPagina(value);
   };
 
-  const indexOfLastJuego = pagina * porPagina;
-  const indexOfFirstJuego = indexOfLastJuego - porPagina;
-  const juegosActuales = juegosFiltrados.slice(indexOfFirstJuego, indexOfLastJuego);
-
-  const pintarJuegos = () => {
-    return juegosActuales.map((juego) => <CardJuegos key={uuidv4()} juego={juego} />);
-  };
+  const indiceUltimoJuego = pagina * porPagina;
+  const indicePrimerJuego = indiceUltimoJuego - porPagina;
+  const juegosActuales = juegosFiltrados.slice(indicePrimerJuego, indiceUltimoJuego);
 
   return (
     <div className="catalogo-container">
@@ -95,7 +88,9 @@ const Catalogo = () => {
         />
       </div>
 
-      <div className="catalogo-lista">{pintarJuegos()}</div>
+      <div className="catalogo-lista">
+        {juegosActuales.map((juego) => <CardJuegos key={juego.id} juego={juego} />)}
+      </div>
       
       <div className="paginacion">
         <Stack spacing={2}>
