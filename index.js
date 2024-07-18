@@ -6,7 +6,6 @@ const port = 3000;
 const path = require('path');
 
 // Middlewares
-const error404 = require('./middlewares/error404');
 const morgan = require('./middlewares/morgan');
 
 const loggerFormat = ':method :url :status :response-time ms - :res[content-length]'
