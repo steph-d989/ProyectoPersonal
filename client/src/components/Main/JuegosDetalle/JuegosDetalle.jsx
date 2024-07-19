@@ -29,36 +29,64 @@ const JuegosDetalle = () => {
     fetchJuego();
   }, [nombre]);
 
+  const handleReservar = async () => {
+    const reservaData = {
+      email: "steph_d@hotmail.com",
+      nombre: juego.nombre,
+      fecha_devolucion: new Date(new Date().setDate(new Date().getDate() + 7)).toISOString() // Ejemplo de fecha de devolución a 7 días desde hoy
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/api/reservas/crear', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reservaData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(data.message);
+      } else {
+        throw new Error('Error al crear la reserva');
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert('No se pudo crear la reserva');
+    }
+  };
+
   if (!juego) {
     return <div>Cargando...</div>;
   }
 
   return (
     <>
-    <section className="JuegosDetalle">
-      <h1>{juego.nombre}</h1>
-      <article>
-        <img className="imagenJuego" src={juego.imagen} alt={`Imagen de ${juego.nombre}`} />
-        <div>
-          <p>Descripcion: {juego.descripcion}</p>
-          <p>Categoria: {juego.genero}</p>
-          <p>Minimo de jugadores: {juego.numero_jugadores_min}</p>
-          <p>Maximo de jugadores: {juego.numero_jugadores_max}</p>
-          <p>Edad minima recomendada: {juego.edad_recomendada}</p>
-          <p>Tiempo de partida: {juego.tiempo_juego}</p>
-        </div>
-      </article>
-      <iframe
-        width="560"
-        height="315"
-        src={juego.video_url}
-        title={juego.nombre}
-        style={{ border: 0 }}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen
-      ></iframe>
-      <button onClick={`http://localhost:3000/api/reservas/crear`}>Reservar</button>
+      <section className="JuegosDetalle">
+        <h1>{juego.nombre}</h1>
+        <article>
+          <img className="imagenJuego" src={juego.imagen} alt={`Imagen de ${juego.nombre}`} />
+          <div>
+            <p>Descripcion: {juego.descripcion}</p>
+            <p>Categoria: {juego.genero}</p>
+            <p>Minimo de jugadores: {juego.numero_jugadores_min}</p>
+            <p>Maximo de jugadores: {juego.numero_jugadores_max}</p>
+            <p>Edad minima recomendada: {juego.edad_recomendada}</p>
+            <p>Tiempo de partida: {juego.tiempo_juego}</p>
+          </div>
+        </article>
+        <iframe
+          width="560"
+          height="315"
+          src={juego.video_url}
+          title={juego.nombre}
+          style={{ border: 0 }}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
+        <button onClick={handleReservar}>Reservar</button>
       </section>
     </>
   );
