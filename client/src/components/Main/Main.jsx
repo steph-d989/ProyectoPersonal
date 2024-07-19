@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Catalogo from "./Catalogo";
 import JuegosDetalle from "./JuegosDetalle";
 import QuienesSomos from "./QuienesSomos/QuienesSomos";
+import Usuario from "./Usuario/Usuario"
 
 const Main = () => {
   return (
@@ -12,6 +13,7 @@ const Main = () => {
         <Route path="/catalogo" element={<Catalogo />} />
         <Route path="/juego/:nombre" element={<JuegosDetalle />} />
         <Route path="/quienes_somos" element={<QuienesSomos />} />
+        <Route path="/usuario" element={<Usuario />} />
       </Routes>
     </main>
   );
