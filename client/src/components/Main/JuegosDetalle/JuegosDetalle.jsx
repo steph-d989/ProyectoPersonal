@@ -33,7 +33,7 @@ const JuegosDetalle = () => {
     const reservaData = {
       email: "steph_d@hotmail.com",
       nombre: juego.nombre,
-      fecha_devolucion: new Date(new Date().setDate(new Date().getDate() + 7)).toISOString() // Ejemplo de fecha de devolución a 7 días desde hoy
+      fecha_devolucion: new Date(new Date().setDate(new Date().getDate() + 7)).toISOString() 
     };
 
     try {
