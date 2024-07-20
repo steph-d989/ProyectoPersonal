@@ -2,7 +2,7 @@
   padding: 1rem;
   max-width: 100%;
   margin: 0 auto;
-  
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,10 +11,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem; 
+    padding: 1rem; 
+    width: 100%;
+    max-width: 50%; 
 
     label {
-      margin-right: 0.5rem;
+      margin-bottom: 1rem; 
     }
 
     select, input {
@@ -23,6 +26,7 @@
       font-size: 1rem;
       border: 1px solid #ccc;
       border-radius: 4px;
+      width: 100%;
     }
   }
 
@@ -31,11 +35,11 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem; 
 
     .card-juego {
       width: 100%;
-      max-width: 300px; /* Ajusta el ancho máximo según sea necesario */
+      max-width: 300px;
     }
   }
 
@@ -57,10 +61,11 @@
     .catalogo-filtros {
       flex-direction: column;
       align-items: center;
-
+      margin-bottom: 3rem;
+      
       select, input {
         width: 100%;
-        max-width: 300px; /* Ajusta según el tamaño de tu diseño */
+        max-width: 300px; 
       }
     }
 
@@ -70,13 +75,7 @@
     }
 
     .paginacion {
-      margin-top: 1rem;
-
-      .MuiPagination-root {
-        .MuiPagination-ul {
-          gap: 0.3rem;
-        }
-      }
+      margin-top: 3rem;
     }
   }
 
@@ -88,6 +87,7 @@
     .catalogo-filtros {
       flex-direction: row;
       gap: 1rem;
+      margin-bottom: 3rem; 
     }
 
     .catalogo-lista {
@@ -104,6 +104,7 @@
     .catalogo-filtros {
       flex-direction: row;
       gap: 1rem;
+      margin-bottom: 2rem; 
     }
 
     .catalogo-lista {

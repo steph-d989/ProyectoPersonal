@@ -1,30 +1,27 @@
-/* _QuienesSomos.scss */
-
 .quienes-somos {
-    text-align: center; /* Centra la imagen */
+    text-align: center; 
     padding: 1rem;
     color: #333;
   
     img {
       max-width: 100%;
       height: auto;
-      display: block; /* Asegura que la imagen se trate como un bloque */
-      margin: 0 auto 1rem auto; /* Centra la imagen y añade margen en la parte inferior */
+      display: block; 
+      margin: 0 auto 1rem auto; 
     }
   
     p {
       font-size: 1rem;
       margin-bottom: 1rem;
       line-height: 1.6;
-      text-align: justify; /* Justifica el texto */
-      text-justify: inter-word; /* Mejora la justificación en algunos navegadores */
+      text-align: justify; 
+      text-justify: inter-word; 
     }
   
     .negrita {
       font-weight: bold;
     }
   
-    // Media Query para dispositivos móviles
     @media (max-width: 480px) {
       padding: 0.5rem;
   
@@ -34,7 +31,6 @@
       }
     }
   
-    // Media Query para pantallas de al menos 800px
     @media (min-width: 800px) {
       max-width: 800px;
       margin: 0 auto;
@@ -44,7 +40,6 @@
       }
     }
   
-    // Media Query para pantallas de al menos 1200px
     @media (min-width: 1200px) {
       max-width: 1200px;
       margin: 0 auto;

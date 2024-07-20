@@ -67,7 +67,7 @@ const Catalogo = () => {
   return (
     <div className="catalogo-container">
       <div>
-        <label htmlFor="categoria">Filtrar por categoría:</label>
+        <label htmlFor="categoria">Filtrar por categoría:  </label>
         <select id="categoria" value={filtroCategoria} onChange={handleChangeCategoria}>
           <option value="">Todos</option>
           <option value="Estrategia">Estrategia</option>
@@ -78,7 +78,7 @@ const Catalogo = () => {
       </div>
 
       <div>
-        <label htmlFor="busqueda">Buscar juego:</label>
+        <label htmlFor="busqueda">Buscar juego:  </label>
         <input
           type="text"
           id="busqueda"
@@ -94,7 +94,6 @@ const Catalogo = () => {
       
       <div className="paginacion">
         <Stack spacing={2}>
-          <Typography>Page: {pagina}</Typography>
           <Pagination
             count={Math.ceil(juegosFiltrados.length / porPagina)}
             page={pagina}

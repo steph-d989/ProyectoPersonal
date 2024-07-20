@@ -47,32 +47,31 @@
   }
   @media (min-width: 800px) {
     .card-juegos {
-      /* Ajustes en el diseño para pantallas más grandes */
-      max-width: 300px; /* Limita el ancho máximo de la tarjeta */
-      margin: 20px; /* Aumenta el margen alrededor de la tarjeta */
+      max-width: 300px; 
+      margin: 20px; 
     }
   
     .card-juegos__title {
-      font-size: 1.5rem; /* Aumenta el tamaño de la fuente del título */
+      font-size: 1.5rem; 
     }
   
     .card-juegos__image {
-      height: 250px; /* Aumenta la altura de la imagen */
+      height: 250px; 
     }
   
     .card-juegos__description,
     .card-juegos__genre {
-      font-size: 1rem; /* Aumenta el tamaño de la fuente */
-      margin: 15px 25px; /* Ajusta el margen */
+      font-size: 1rem; 
+      margin: 15px 25px; 
     }
   
     .card-juegos__description {
-      font-weight: 400; /* Aumenta el grosor de la fuente */
+      font-weight: 400; 
     }
   
     .card-juegos__genre {
-      font-style: normal; /* Elimina el estilo en cursiva */
-      color: #666; /* Ajusta el color */
+      font-style: normal; 
+      color: #666; 
     }
   }
   

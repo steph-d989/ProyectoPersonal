@@ -18,14 +18,12 @@ const Nav = () => {
         </Link>
       </div>
 
-      {/* Icono de menú para móviles */}
       <div className="menu-toggle" onClick={toggleMobileMenu}>
         <div className="bar"></div>
         <div className="bar"></div>
         <div className="bar"></div>
       </div>
 
-      {/* Menú móvil */}
       <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
         <ul>
           <li><Link to="/catalogo">Inicio</Link></li>
@@ -35,7 +33,6 @@ const Nav = () => {
         </ul>
       </div>
 
-      {/* Menú completo para pantallas medianas y grandes */}
       <ul className="navbar-links">
         <li><Link to="/catalogo">Inicio</Link></li>
         <li><Link to="/usuario/steph_d@hotmail.com">Mi perfil</Link></li>
