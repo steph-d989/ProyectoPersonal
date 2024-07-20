@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { FaTrash } from 'react-icons/fa';
 
 const Usuario = () => {
-  const [reservas, setReservas] = useState([]); // Estado para almacenar las reservas
-  const [error, setError] = useState(""); // Estado para manejar errores
+  const [reservas, setReservas] = useState([]); 
+  const [error, setError] = useState(""); 
 
-  const email = "steph_d@hotmail.com"; // Correo electrónico predeterminado para buscar
+  const email = "steph_d@hotmail.com"; 
 
   useEffect(() => {
     const fetchReservas = async () => {
@@ -33,7 +33,7 @@ const Usuario = () => {
     };
 
     fetchReservas();
-  }, []); // El array vacío significa que useEffect se ejecutará solo una vez al montar el componente
+  }, []); 
 
   const handleDelete = async (juegoNombre) => {
     try {
@@ -48,7 +48,6 @@ const Usuario = () => {
         throw new Error(`Error ${response.status}: ${response.statusText} - ${errorData.error}`);
       }
 
-      // Actualiza la lista de reservas
       setReservas(reservas.filter(reserva => reserva.juego_nombre !== juegoNombre));
     } catch (error) {
       console.error("Error al eliminar la reserva:", error);
@@ -57,11 +56,11 @@ const Usuario = () => {
   };
 
   return (
-    <div>
+    <div className="usuario-container">
       <h3>Hola...</h3>
       <h3>Mis reservas</h3>
       
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
 
       {reservas.length === 0 && !error ? (
         <p>No se encontraron reservas para el correo proporcionado.</p>
@@ -82,7 +81,8 @@ const Usuario = () => {
                 <td>{new Date(reserva.fecha_reserva).toLocaleDateString()}</td>
                 <td>{new Date(reserva.fecha_devolucion).toLocaleDateString()}</td>
                 <td>
-                  <button onClick={() => handleDelete(reserva.juego_nombre)}>                                    <FaTrash style={{ color: 'red', cursor: 'pointer' }} />
+                  <button onClick={() => handleDelete(reserva.juego_nombre)}>
+                    <FaTrash style={{ color: 'red', cursor: 'pointer' }} />
                   </button>
                 </td>
               </tr>

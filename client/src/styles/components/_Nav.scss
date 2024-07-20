@@ -5,7 +5,7 @@
   background-color: #333;
   padding: 1rem;
   color: white;
-  position: relative; // Para el posicionamiento absoluto del menú hamburguesa
+  position: relative; 
 
   .navbar-logo {
     display: flex;
@@ -34,9 +34,8 @@
     }
   }
 
-  // Menu hamburguesa
   .menu-toggle {
-    display: none; // Ocultarlo por defecto
+    display: none; 
     flex-direction: column;
     cursor: pointer;
 
@@ -49,11 +48,11 @@
     }
   }
 
-  // Mobile Menu
+  
   .mobile-menu {
     display: none;
     position: absolute;
-    top: 60px; // Ajusta según el tamaño de tu navbar
+    top: 60px; 
     right: 0;
     background-color: #333;
     width: 100%;
@@ -81,10 +80,10 @@
     }
   }
 
-  // Media Query para móviles
+ 
   @media (max-width: 480px) {
     .navbar-links {
-      display: none; // Oculta el menú de navegación en móviles
+      display: none; 
     }
 
     .menu-toggle {
@@ -92,25 +91,25 @@
     }
 
     .mobile-menu.active {
-      display: block; // Muestra el menú móvil cuando está activo
+      display: block;
     }
   }
 
-  // Media Query para pantallas de al menos 800px
+  
   @media (min-width: 800px) {
     .menu-toggle {
-      display: none; // Oculta el icono de menú en pantallas medianas y grandes
+      display: none; 
     }
 
     .mobile-menu {
-      display: none; // Oculta el menú móvil en pantallas medianas y grandes
+      display: none; 
     }
   }
 
-  // Media Query para pantallas de al menos 1200px
+  
   @media (min-width: 1200px) {
     .navbar-links {
-      display: flex; // Muestra el menú de navegación completo en pantallas grandes
+      display: flex; 
     }
   }
 }

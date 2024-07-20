@@ -1,87 +1,114 @@
-
 .catalogo-container {
-    padding: 20px;
-    
-    div {
-      margin-bottom: 10px;
-      label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 5px;
+  padding: 1rem;
+  max-width: 100%;
+  margin: 0 auto;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .catalogo-filtros {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    label {
+      margin-right: 0.5rem;
+    }
+
+    select, input {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  }
+
+  .catalogo-lista {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .card-juego {
+      width: 100%;
+      max-width: 300px; /* Ajusta el ancho máximo según sea necesario */
+    }
+  }
+
+  .paginacion {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
+
+    .MuiPagination-root {
+      .MuiPagination-ul {
+        display: flex;
+        gap: 0.5rem;
       }
-      select, input[type="text"] {
+    }
+  }
+
+  @media (max-width: 480px) {
+    .catalogo-filtros {
+      flex-direction: column;
+      align-items: center;
+
+      select, input {
         width: 100%;
-        padding: 8px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
+        max-width: 300px; /* Ajusta según el tamaño de tu diseño */
       }
     }
-    
+
     .catalogo-lista {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-      
-      .card-juegos {
-        background-color: #f0f0f0;
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        
-        .card-juegos__title {
-          font-size: 18px;
-          margin-bottom: 10px;
-        }
-        
-        .card-juegos__image {
-          width: 100%;
-          border-radius: 4px;
-        }
-        
-        .card-juegos__description {
-          margin-top: 10px;
-          font-size: 14px;
-          color: #666;
-        }
-        
-        .card-juegos__genre {
-          margin-top: 5px;
-          font-size: 14px;
-          color: #888;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .paginacion {
+      margin-top: 1rem;
+
+      .MuiPagination-root {
+        .MuiPagination-ul {
+          gap: 0.3rem;
         }
       }
     }
   }
-  
-  @media (min-width: 768px) {
+
+  @media (min-width: 800px) {
     .catalogo-container {
-      padding: 40px;
-      
-      .catalogo-lista {
-        grid-template-columns: repeat(2, 1fr);
-        
-        .card-juegos {
-          .card-juegos__title {
-            font-size: 22px;
-          }
-        }
-      }
+      max-width: 800px;
+    }
+
+    .catalogo-filtros {
+      flex-direction: row;
+      gap: 1rem;
+    }
+
+    .catalogo-lista {
+      flex-direction: row;
+      flex-wrap: wrap;
     }
   }
-  
-  @media (min-width: 1024px) {
+
+  @media (min-width: 1200px) {
     .catalogo-container {
-      .catalogo-lista {
-        grid-template-columns: repeat(3, 1fr);
-        
-        .card-juegos {
-          .card-juegos__title {
-            font-size: 24px;
-          }
-        }
-      }
+      max-width: 1200px;
+    }
+
+    .catalogo-filtros {
+      flex-direction: row;
+      gap: 1rem;
+    }
+
+    .catalogo-lista {
+      flex-direction: row;
+      flex-wrap: wrap;
     }
   }
-  
+}

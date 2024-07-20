@@ -4,7 +4,7 @@ import Catalogo from "./Catalogo";
 import JuegosDetalle from "./JuegosDetalle";
 import QuienesSomos from "./QuienesSomos/QuienesSomos";
 import Usuario from "./Usuario/Usuario";
-import Login from "./Login"; // Asegúrate de importar el componente Login
+import Login from "./Login"; 
 
 const Main = () => {
   return (

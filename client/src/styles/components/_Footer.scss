@@ -1,0 +1,70 @@
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center; /* Asegura que el texto y el ícono estén centrados horizontalmente */
+
+  .footer-content {
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    flex-direction: column; /* Alinea el ícono y el texto en una columna */
+  }
+
+  .footer-text {
+    margin: 0;
+    font-size: 1.2rem; 
+    margin-left: 0.5rem; /* Añade espacio entre el ícono y el texto */
+  }
+
+  .github-link {
+    display: flex;
+    align-items: center; /* Centra el ícono y el texto verticalmente */
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      color: #f0f0f0; /* Cambia el color del texto al pasar el ratón */
+    }
+
+    svg {
+      margin-right: 0.5rem; /* Añade espacio entre el ícono y el texto */
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-text {
+      font-size: 1rem; 
+    }
+
+    .github-link {
+      svg {
+        font-size: 20px; 
+      }
+    }
+  }
+
+  @media (min-width: 800px) {
+    .footer-text {
+      font-size: 1.2rem;
+    }
+
+    .github-link {
+      svg {
+        font-size: 24px; 
+      }
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .footer-text {
+      font-size: 1.4rem;
+    }
+
+    .github-link {
+      svg {
+        font-size: 28px; 
+      }
+    }
+  }
+}
