@@ -1,6 +1,6 @@
 {
     "source": {
-        "include": ["controllers", "middlewares", "models", "routes", "queries"],  // Incluye todas las carpetas relevantes
+        "include": ["controllers", "middlewares", "models", "routes", "queries"],
         "exclude": ["node_modules"]
     },
     "opts": {
