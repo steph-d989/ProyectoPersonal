@@ -1,8 +1,7 @@
-// Estilos base para dispositivos móviles
+
 .catalogo-container {
     padding: 20px;
     
-    // Estilos para el filtro y la búsqueda
     div {
       margin-bottom: 10px;
       label {
@@ -20,13 +19,11 @@
       }
     }
     
-    // Estilos para la lista de juegos
     .catalogo-lista {
       display: grid;
       grid-template-columns: 1fr;
       gap: 20px;
       
-      // Estilos para cada tarjeta de juego
       .card-juegos {
         background-color: #f0f0f0;
         padding: 10px;
@@ -58,7 +55,6 @@
     }
   }
   
-  // Media query para tablets y escritorios
   @media (min-width: 768px) {
     .catalogo-container {
       padding: 40px;
@@ -75,7 +71,6 @@
     }
   }
   
-  // Media query para pantallas grandes (ej. laptops y escritorios amplios)
   @media (min-width: 1024px) {
     .catalogo-container {
       .catalogo-lista {

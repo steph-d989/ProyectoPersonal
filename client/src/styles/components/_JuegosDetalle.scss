@@ -3,40 +3,49 @@
   flex-direction: column;
   align-items: center;
   padding: 1rem;
+  font-family: 'Poppins', sans-serif; // Fuente juvenil
+  max-width: 1200px; // Define un ancho máximo para la sección
+  margin: 0 auto; // Centra la sección horizontalmente
 
   h1 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
+    text-align: center;
+    color: #333;
   }
 
   article {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row; // Cambia a row para mostrar en fila
+    align-items: flex-start; // Alinea los elementos al inicio
+    width: 100%;
     margin-bottom: 1rem;
 
     .imagenJuego {
       width: 100%;
-      max-width: 300px; /* Ajusta el tamaño máximo de la imagen */
+      max-width: 300px; // Ajusta el tamaño máximo de la imagen
       height: auto;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-bottom: 1rem;
+      margin-right: 1rem; // Espaciado derecho para separar de la descripción
     }
 
     div {
       text-align: left;
+      width: 100%;
 
       p {
         font-size: 1.2rem;
         margin: 0.5rem 0;
+        color: #333;
       }
     }
   }
 
   iframe {
     width: 100%;
-    height: 200px; /* Ajusta el tamaño del iframe según sea necesario */
+    max-width: 560px;
+    height: 315px;
     margin-top: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -58,8 +67,8 @@
     }
   }
 
-  // Media Query para dispositivos móviles (first mobile)
-  @media (min-width: 320px) and (max-width: 480px) {
+  // Media Query para dispositivos móviles (primer móvil)
+  @media (max-width: 480px) {
     padding: 1rem;
 
     h1 {
@@ -67,8 +76,13 @@
     }
 
     article {
+      flex-direction: column; // Cambia a columna para pantallas móviles
+      align-items: center; // Centra los elementos
+
       .imagenJuego {
         max-width: 100%;
+        margin-right: 0; // Quita el margen derecho
+        margin-bottom: 1rem; // Añade margen inferior
       }
 
       div {
@@ -79,12 +93,74 @@
     }
 
     iframe {
-      height: 150px;
+      height: 200px;
     }
 
     button {
       padding: 0.8rem 1.5rem;
       font-size: 1rem;
+    }
+  }
+
+  // Media Query para pantallas de al menos 800px
+  @media (min-width: 800px) {
+    padding: 2rem;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    article {
+      .imagenJuego {
+        max-width: 400px;
+        margin-right: 2rem; // Aumenta el espaciado derecho
+      }
+
+      div {
+        p {
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    iframe {
+      height: 360px;
+    }
+
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  // Media Query para pantallas de al menos 1200px
+  @media (min-width: 1200px) {
+    padding: 3rem;
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    article {
+      .imagenJuego {
+        max-width: 500px;
+        margin-right: 3rem; // Aumenta el espaciado derecho
+      }
+
+      div {
+        p {
+          font-size: 1.2rem;
+        }
+      }
+    }
+
+    iframe {
+      height: 400px;
+    }
+
+    button {
+      padding: 1.2rem 2.5rem;
+      font-size: 1.3rem;
     }
   }
 }
