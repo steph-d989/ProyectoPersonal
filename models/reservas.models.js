@@ -34,30 +34,31 @@ const crearReserva = async (entry) => {
 
 /**
  * Descripción: Esta función elimina una reserva de la tabla reservas en base al email
- * y el nombre del Juego que recibe como argumentos.
+ * y el nombre del juego que recibe como argumentos.
  * @memberof FuncionesReservas 
  * @method borrarReserva 
  * @async 
- * @param {JSON} entry - Un JSON con el email y el nombre del juego de la fila a eliminar de la tabla
- * @return {Integer} Devuelve el número de rows eliminadas en la tabla
- * @throws {Error} Error de consulta a la BBDD
+ * @param {Object} entry - Un objeto con el email y el nombre del juego de la fila a eliminar.
+ * @return {Integer} Devuelve el número de filas eliminadas en la tabla.
+ * @throws {Error} Error de consulta a la BBDD.
  */
 const borrarReserva = async (entry) => {
-    const { email, nombre } = entry;
+    const { email, juego_nombre } = entry;
     let client, result;
     try {
         client = await pool.connect();
-        const data = await client.query(queries.borrarReserva, [email, nombre])
+        const data = await client.query(queries.borrarReserva, [email, juego_nombre]);
         result = data.rowCount;
     } catch (err) {
-        console.log(err);
+        console.log("Error al borrar la reserva:", err);
         throw err;
     } finally {
         client.release();
     }
-    console.log(result)
-    return result
+    return result;
 };
+
+
 
 /**
  * Descripción: Obtiene las reservas de un usuario en base a su correo electrónico.

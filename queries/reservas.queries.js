@@ -16,7 +16,7 @@ const queriesReservas = {
             j.nombre=$2), 
 		$3)`,
 
-    borrarReserva: `DELETE FROM 
+        borrarReserva: `DELETE FROM 
         reservas
     WHERE
         usuario_id = (SELECT 

@@ -1,0 +1,549 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ProyectoPersonal API",
+    "version": "1.0.0",
+    "description": "Documentación para la API de ProyectoPersonal."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "paths": {
+    "/usuarios/{email}": {
+      "get": {
+        "summary": "Obtener usuario por email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nombre": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          }
+        }
+      }
+    },
+    "/usuarios/crear": {
+      "post": {
+        "summary": "Crear un nuevo usuario",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "pass_hash": {
+                    "type": "string"
+                  }
+                },
+                "required": ["nombre", "email", "pass_hash"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario creado"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/usuarios/borrar/{email}": {
+      "delete": {
+        "summary": "Borrar usuario por email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Usuario borrado"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          }
+        }
+      }
+    },
+    "/usuarios/editar/pass": {
+      "put": {
+        "summary": "Editar contraseña de usuario",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pass_hash": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": ["pass_hash", "email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contraseña actualizada"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/usuarios/editar": {
+      "put": {
+        "summary": "Editar rol de usuario",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rol": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": ["rol", "email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rol actualizado"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/reservas/{email}": {
+      "get": {
+        "summary": "Obtener reserva por email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reserva encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "nombre": {
+                      "type": "string"
+                    },
+                    "fecha_devolucion": {
+                      "type": "string",
+                      "format": "date"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Reserva no encontrada"
+          }
+        }
+      }
+    },
+    "/reservas/crear": {
+      "post": {
+        "summary": "Crear una nueva reserva",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "fecha_devolucion": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                },
+                "required": ["email", "nombre", "fecha_devolucion"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Reserva creada"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/reservas/borrar": {
+      "delete": {
+        "summary": "Borrar una reserva",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "nombre": {
+                    "type": "string"
+                  }
+                },
+                "required": ["email", "nombre"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Reserva borrada"
+          },
+          "404": {
+            "description": "Reserva no encontrada"
+          }
+        }
+      }
+    },
+    "/juegos": {
+      "get": {
+        "summary": "Obtener todos los juegos",
+        "responses": {
+          "200": {
+            "description": "Lista de juegos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "nombre": {
+                        "type": "string"
+                      },
+                      "descripcion": {
+                        "type": "string"
+                      },
+                      "genero": {
+                        "type": "string"
+                      },
+                      "numero_jugadores_min": {
+                        "type": "integer"
+                      },
+                      "numero_jugadores_max": {
+                        "type": "integer"
+                      },
+                      "edad_recomendada": {
+                        "type": "integer"
+                      },
+                      "tiempo_juego": {
+                        "type": "string"
+                      },
+                      "video_url": {
+                        "type": "string"
+                      },
+                      "imagen": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/juegos/crear": {
+      "post": {
+        "summary": "Crear un nuevo juego",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "descripcion": {
+                    "type": "string"
+                  },
+                  "genero": {
+                    "type": "string"
+                  },
+                  "numero_jugadores_min": {
+                    "type": "integer"
+                  },
+                  "numero_jugadores_max": {
+                    "type": "integer"
+                  },
+                  "edad_recomendada": {
+                    "type": "integer"
+                  },
+                  "tiempo_juego": {
+                    "type": "string"
+                  },
+                  "video_url": {
+                    "type": "string"
+                  },
+                  "imagen": {
+                    "type": "string"
+                  }
+                },
+                "required": ["nombre", "descripcion", "genero", "numero_jugadores_min", "numero_jugadores_max", "edad_recomendada", "tiempo_juego", "video_url", "imagen"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Juego creado"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/juegos/borrar/{nombre}": {
+      "delete": {
+        "summary": "Borrar un juego por nombre",
+        "parameters": [
+          {
+            "name": "nombre",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rol": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": ["rol", "email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Juego borrado"
+          },
+          "404": {
+            "description": "Juego no encontrado"
+          }
+        }
+      }
+    },
+    "/juegos/editar": {
+      "put": {
+        "summary": "Editar un juego",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "descripcion": {
+                    "type": "string"
+                  },
+                  "genero": {
+                    "type": "string"
+                  },
+                  "numero_jugadores_min": {
+                    "type": "integer"
+                  },
+                  "numero_jugadores_max": {
+                    "type": "integer"
+                  },
+                  "edad_recomendada": {
+                    "type": "integer"
+                  },
+                  "tiempo_juego": {
+                    "type": "string"
+                  },
+                  "video_url": {
+                    "type": "string"
+                  },
+                  "imagen": {
+                    "type": "string"
+                  }
+                },
+                "required": ["nombre", "descripcion", "genero", "numero_jugadores_min", "numero_jugadores_max", "edad_recomendada", "tiempo_juego", "video_url", "imagen"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Juego actualizado"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/juegos/paginacion": {
+      "get": {
+        "summary": "Obtener juegos con paginación",
+        "parameters": [
+          {
+            "name": "pagina",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "porPagina",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de juegos con paginación",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "nombre": {
+                        "type": "string"
+                      },
+                      "descripcion": {
+                        "type": "string"
+                      },
+                      "genero": {
+                        "type": "string"
+                      },
+                      "numero_jugadores_min": {
+                        "type": "integer"
+                      },
+                      "numero_jugadores_max": {
+                        "type": "integer"
+                      },
+                      "edad_recomendada": {
+                        "type": "integer"
+                      },
+                      "tiempo_juego": {
+                        "type": "string"
+                      },
+                      "video_url": {
+                        "type": "string"
+                      },
+                      "imagen": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

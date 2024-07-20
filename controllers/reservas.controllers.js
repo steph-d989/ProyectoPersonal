@@ -28,27 +28,36 @@ const crearReservas = async (req, res) => {
 };
 
 /**
- * Descripción: Esta función llama desde la ruta /api/reserva al modelo borrarReserva
- * Este espera recibir por body los dos campos para eliminar la reserva
+ * Descripción: Esta función llama desde la ruta /api/reservas/borrar al modelo borrarReserva
+ * Este espera recibir por body el email y el nombre del juego para eliminar la reserva
  * @memberof ControllersReservas 
  * @method borrarReserva
  * @async 
  * @param {Object} req Objeto de petición HTTP de Express.
  * @param {Object} res Objeto de respuesta HTTP de Express.
- * @throws {Error} Error al eliminar la relación reserva
+ * @throws {Error} Error al eliminar la reserva.
  */
 const borrarReserva = async (req, res) => {
+    const { email, juego_nombre } = req.body;
+
+    if (!email || !juego_nombre) {
+        return res.status(400).json({ error: "Faltan datos necesarios para eliminar la reserva." });
+    }
+
     try {
-        const reserva = await reservasEntry.borrarReserva(req.body);
-        if (reserva != 1) {
-            res.status(400).json({ error: "Este usuario no tiene guardada esta reserva" });
-        } else {
-            res.status(200).json({ message: `Se ha borrado la relación reserva.` });
-        } 
+        const result = await reservasEntry.borrarReserva({ email, juego_nombre });
+
+        if (result === 0) {
+            return res.status(400).json({ error: "No se encontró la reserva para eliminar." });
+        }
+
+        res.status(200).json({ message: "Reserva eliminada con éxito." });
     } catch (error) {
+        console.error("Error al eliminar la reserva:", error);
         res.status(500).json({ error: "Error en la BBDD" });
     }
 };
+
 
 /**
  * Descripción: Esta función llama desde la ruta /api/reserva o /api/reserva?:usuario_id al modelo obtenerReservaEmail
@@ -65,8 +74,8 @@ const obtenerReservasEmail = async (req, res) => {
     try {
         if (req.body.email) {
             reservas = await reservasEntry.obtenerReservasEmail(req.body.email);
-        } else if (req.query.email) {
-            reservas = await reservasEntry.obtenerReservasEmail(req.query.email);
+        } else if (req.params.email) {
+            reservas = await reservasEntry.obtenerReservasEmail(req.params.email);
         }
         res.status(200).json(reservas);
     } catch (error) {

@@ -148,21 +148,23 @@ INSERT INTO
 
 /* Borrar una reserva */
 DELETE FROM 
-        reservas
-WHERE
+    reservas
+WHERE 
     usuario_id = (SELECT 
-                    u.usuario_id
+                    u.usuario_id 
                 FROM 
-                    usuarios AS u
+                    usuarios AS u 
                 WHERE 
                     u.email='steph_d@hotmail.com')
 AND 
     juego_id = (SELECT 
-                    j.juego_id
+                    j.juego_id 
                 FROM 
-                    juegos AS j
+                    juegos AS j     
                 WHERE 
                     j.nombre='Catan')
+AND 
+    fecha_reserva = '2024-07-20';
 
 /* Obtener reservas por email */
 SELECT

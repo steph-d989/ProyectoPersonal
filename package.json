@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "generate-docs": "jsdoc -c jsdoc.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "start": "concurrently \"npm run server\" \"npm run client\""
