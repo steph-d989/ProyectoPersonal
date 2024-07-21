@@ -19,7 +19,6 @@ BorrowGames es una plataforma web innovadora que permite a los amantes de los ju
 - React
 - React Router 6
 - Material-UI 5
-- Emotion (para estilos en JS)
 - Vite (herramienta de construcción)
 - SASS
 - React Icons
@@ -107,7 +106,7 @@ BorrowGames es una plataforma web innovadora que permite a los amantes de los ju
 ## Instalación y Configuración
 
 1. Clona el repositorio:
-    [Repositorio(https://github.com/steph-d989/ProyectoPersonal.git)]
+    (https://github.com/steph-d989/ProyectoPersonal.git)
 
 2. Instala las dependencias del backend:
     npm i
@@ -154,10 +153,6 @@ BorrowGames es una plataforma web innovadora que permite a los amantes de los ju
 
 Las contribuciones son bienvenidas. Por favor, abre un issue para discutir los cambios propuestos antes de hacer un pull request.
 
-## Licencia
-
-[Especifica la licencia del proyecto]
-
 ## Contacto
 
-Stephani Damiani - [Contacto(https://github.com/steph-d989)]
+Stephani Damiani - (https://github.com/steph-d989)
