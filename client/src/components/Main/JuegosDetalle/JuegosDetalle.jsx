@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+
 const JuegosDetalle = () => {
   const { nombre } = useParams();
   const [juego, setJuego] = useState(null);
@@ -61,7 +62,7 @@ const JuegosDetalle = () => {
     return <div>Cargando...</div>;
   }
 
-  // Determinar la clase basada en la categoría
+
   const categoryClass = juego.genero || "default";
 
   return (
