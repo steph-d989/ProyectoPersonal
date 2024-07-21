@@ -44,41 +44,9 @@ BorrowGames es una plataforma web innovadora que permite a los amantes de los ju
 - JSDoc
 - Morgan
 
-PROYECTOPERSONAL/
-│
-├── backend/
-│   ├── config/
-│   ├── controllers/
-│   ├── jsondocs/
-│   ├── middlewares/
-│   ├── models/
-│   ├── queries/
-│   ├── routes/
-│   ├── index.js
-│   ├── package.json
-│   ├── queries.sql
-│   └── swagger.json
-│
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Footer/
-│   │   │   ├── Header/
-│   │   │   ├── Main/
-│   │   │   │   ├── Admin/
-│   │   │   │   ├── Catalogo/
-│   │   │   │   │   ├── CardJuegos/
-│   │   │   │   ├── JuegosDetalle/
-│   │   │   │   ├── Login/
-│   │   │   │   ├── QuienesSomos/
-│   │   │   │   ├── Register/
-│   │   │   │   ├── Usuario/
-│   │   ├── styles/
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── package.json
-│   └── README.md
+## Estructura de protecyo
+
+![Estructura de proyecto](./client/public/EstructuraProyecto.png "Estructura de proyecto")
 
 ## Organización
 
