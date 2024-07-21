@@ -9,7 +9,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 // Middlewares
-const morgan = require('morgan'); // Asegúrate de que morgan esté instalado y sea el paquete correcto
+const morgan = require('morgan'); 
 
 const loggerFormat = ':method :url :status :response-time ms - :res[content-length]';
 
