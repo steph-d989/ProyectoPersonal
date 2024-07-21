@@ -39,6 +39,11 @@ app.use('/api/usuarios', usuariosApiRoutes);
 app.use('/api/juegos', juegosApiRoutes);
 app.use('/api/reservas', reservaApiRoutes);
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Algo salió mal!');
+});
+
 /* app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
