@@ -1,5 +1,5 @@
 .catalogo-container {
-  padding: 1rem;
+  padding: 2rem; /* Aumenta el padding general */
   max-width: 100%;
   margin: 0 auto;
 
@@ -11,22 +11,40 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 2rem; 
-    padding: 1rem; 
+    margin-bottom: 3rem; /* Separa los filtros de la lista de juegos */
+    padding: 2rem; /* Añade padding interno */
     width: 100%;
-    max-width: 50%; 
+    max-width: 100%; /* Asegura que los filtros ocupen todo el ancho disponible */
+    background-color: #f9f9f9; /* Fondo claro para los filtros */
+    border-radius: 16px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra de enfoque */
 
-    label {
-      margin-bottom: 1rem; 
-    }
-
-    select, input {
-      margin-bottom: 1rem;
-      padding: 0.5rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+    .catalogo-filtro-item {
       width: 100%;
+      max-width: 600px; /* Ancho máximo para los filtros */
+      margin-bottom: 1.5rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem; /* Tamaño de fuente para las etiquetas */
+        color: #333;
+      }
+
+      select, input {
+        width: 100%;
+        padding: 1rem; /* Padding interno */
+        font-size: 1.25rem; /* Tamaño de fuente */
+        border: 1px solid #ccc;
+        border-radius: 16px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+        transition: box-shadow 0.2s;
+
+        &:focus {
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra más fuerte al enfocar */
+          border-color: #007bff; /* Color del borde al enfocar */
+        }
+      }
     }
   }
 
@@ -34,13 +52,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem; 
-
-    .card-juego {
-      width: 100%;
-      max-width: 300px;
-    }
+    gap: 1.5rem; /* Espacio entre tarjetas */
+    margin-bottom: 2rem;
   }
 
   .paginacion {
@@ -59,13 +72,13 @@
 
   @media (max-width: 480px) {
     .catalogo-filtros {
+      justify-content: space-around;
       flex-direction: column;
       align-items: center;
       margin-bottom: 3rem;
-      
-      select, input {
-        width: 100%;
-        max-width: 300px; 
+
+      .catalogo-filtro-item {
+        max-width: 300px; /* Limita el ancho en pantallas pequeñas */
       }
     }
 
@@ -85,9 +98,10 @@
     }
 
     .catalogo-filtros {
+      justify-content: space-around;
       flex-direction: row;
       gap: 1rem;
-      margin-bottom: 3rem; 
+      margin-bottom: 3rem;
     }
 
     .catalogo-lista {
@@ -102,9 +116,10 @@
     }
 
     .catalogo-filtros {
+      justify-content: space-around;
       flex-direction: row;
       gap: 1rem;
-      margin-bottom: 2rem; 
+      margin-bottom: 3rem;
     }
 
     .catalogo-lista {

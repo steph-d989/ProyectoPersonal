@@ -3,9 +3,27 @@
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  font-family: 'Poppins', sans-serif; 
-  max-width: 1200px; 
-  margin: 0 auto; 
+  font-family: 'Poppins', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+
+  &.Estrategia {
+    background-color: rgba(5, 230, 247, 0.1);
+  }
+
+  &.Familiar {
+    background-color: rgba(163, 248, 66, 0.1);
+  }
+
+  &.Aventura {
+    background-color: rgba(106, 106, 236, 0.1);
+  }
+
+  &.RPG {
+    background-color: rgba(253, 67, 213, 0.1);
+  }
 
   h1 {
     font-size: 1.8rem;
@@ -17,18 +35,18 @@
   article {
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    justify-content: center; 
+    align-items: center;
+    justify-content: center;
     width: 100%;
     margin-bottom: 1rem;
 
     .imagenJuego {
       width: 100%;
-      max-width: 300px; 
+      max-width: 300px;
       height: auto;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-right: 1rem; 
+      margin-right: 1rem;
     }
 
     div {
@@ -58,15 +76,11 @@
     padding: 1rem 2rem;
     font-size: 1.2rem;
     color: #fff;
-    background-color: #007bff;
+    background-color: #f57b77; 
     border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #0056b3;
-    }
   }
 
   @media (max-width: 480px) {
@@ -77,20 +91,20 @@
     }
 
     article {
-      display:flex;
-      flex-direction: column; 
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      text-align: center; 
+      text-align: center;
 
       .imagenJuego {
         width: 150px;
-        margin-right: 0; 
-        margin-bottom: 1rem; 
+        margin-right: 0;
+        margin-bottom: 1rem;
       }
 
       div {
         width: 100%;
-        max-width: 100%; 
+        max-width: 100%;
         p {
           font-size: 1rem;
         }
@@ -115,12 +129,12 @@
     }
 
     article {
-      display:flex;
+      display: flex;
       flex-direction: row;
 
       .imagenJuego {
         max-width: 400px;
-        margin-right: 2rem; 
+        margin-right: 2rem;
       }
 
       div {
@@ -150,7 +164,7 @@
     article {
       .imagenJuego {
         max-width: 500px;
-        margin-right: 3rem; 
+        margin-right: 3rem;
       }
 
       div {

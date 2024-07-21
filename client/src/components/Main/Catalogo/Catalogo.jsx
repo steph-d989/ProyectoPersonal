@@ -10,7 +10,7 @@ const Catalogo = () => {
   const [filtroCategoria, setFiltroCategoria] = useState("");
   const [busqueda, setBusqueda] = useState("");
   const [pagina, setPagina] = useState(1);
-  const [porPagina] = useState(9);
+  const [porPagina] = useState(10);
 
   useEffect(() => {
     const getJuegos = async () => {
@@ -66,26 +66,28 @@ const Catalogo = () => {
 
   return (
     <div className="catalogo-container">
-      <div>
-        <label htmlFor="categoria">Filtrar por categoría:  </label>
-        <select id="categoria" value={filtroCategoria} onChange={handleChangeCategoria}>
-          <option value="">Todos</option>
-          <option value="Estrategia">Estrategia</option>
-          <option value="Familiar">Familiar</option>
-          <option value="Aventura">Aventura</option>
-          <option value="RPG">RPG</option>
-        </select>
-      </div>
+      <div className="catalogo-filtros">
+        <div className="catalogo-filtro-item">
+          <label htmlFor="categoria">Filtrar por categoría:</label>
+          <select id="categoria" value={filtroCategoria} onChange={handleChangeCategoria}>
+            <option value="">Todos</option>
+            <option value="Estrategia">Estrategia</option>
+            <option value="Familiar">Familiar</option>
+            <option value="Aventura">Aventura</option>
+            <option value="RPG">RPG</option>
+          </select>
+        </div>
 
-      <div>
-        <label htmlFor="busqueda">Buscar juego:  </label>
-        <input
-          type="text"
-          id="busqueda"
-          value={busqueda}
-          onChange={handleChangeBusqueda}
-          placeholder="Nombre del juego..."
-        />
+        <div className="catalogo-filtro-item">
+          <label htmlFor="busqueda">Buscar juego:</label>
+          <input
+            type="text"
+            id="busqueda"
+            value={busqueda}
+            onChange={handleChangeBusqueda}
+            placeholder="Nombre del juego..."
+          />
+        </div>
       </div>
 
       <div className="catalogo-lista">
