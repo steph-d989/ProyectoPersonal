@@ -5,11 +5,12 @@ import { useParams } from "react-router-dom";
 const JuegosDetalle = () => {
   const { nombre } = useParams();
   const [juego, setJuego] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   useEffect(() => {
     const fetchJuego = async () => {
       try {
-        const resp = await fetch(`http://localhost:3000/api/juegos`);
+        const resp = await fetch(`${API_URL}/juegos`);
         if (resp.ok) {
           const data = await resp.json();
           console.log("Datos del array de juegos:", data);
@@ -38,7 +39,7 @@ const JuegosDetalle = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/api/reservas/crear', {
+      const response = await fetch(`${API_URL}/reservas/crear`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

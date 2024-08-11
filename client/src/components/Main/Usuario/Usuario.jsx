@@ -4,13 +4,14 @@ import { FaTrash } from 'react-icons/fa';
 const Usuario = () => {
   const [reservas, setReservas] = useState([]); 
   const [error, setError] = useState(""); 
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   const email = "steph_d@hotmail.com"; 
 
   useEffect(() => {
     const fetchReservas = async () => {
       try {
-        const resp = await fetch(`http://localhost:3000/api/reservas/${email}`);
+        const resp = await fetch(`${API_URL}/reservas/${email}`);
         
         if (!resp.ok) {
           throw new Error(`Error ${resp.status}: ${resp.statusText}`);
@@ -37,7 +38,7 @@ const Usuario = () => {
 
   const handleDelete = async (juegoNombre) => {
     try {
-      const response = await fetch('http://localhost:3000/api/reservas/borrar', {
+      const response = await fetch(`${API_URL}/reservas/borrar`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, juego_nombre: juegoNombre })

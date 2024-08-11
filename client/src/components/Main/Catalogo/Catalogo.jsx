@@ -11,11 +11,12 @@ const Catalogo = () => {
   const [busqueda, setBusqueda] = useState("");
   const [pagina, setPagina] = useState(1);
   const [porPagina] = useState(10);
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   useEffect(() => {
     const getJuegos = async () => {
       try {
-        const resp = await fetch(`http://localhost:3000/api/juegos`);
+        const resp = await fetch(`${API_URL}/juegos`);
         if (resp.ok) {
           const data = await resp.json();
           setJuegos(data);
