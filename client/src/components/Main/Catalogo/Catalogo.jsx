@@ -22,7 +22,8 @@ const Catalogo = () => {
           setJuegos(data);
           setJuegosFiltrados(data);
         } else {
-          throw new Error("Error al obtener los juegos");
+          const errorText = await resp.text(); // Obtén el texto del error
+          throw new Error(`Error al obtener los juegos: ${errorText}`);
         }
       } catch (error) {
         console.error("Error:", error);
