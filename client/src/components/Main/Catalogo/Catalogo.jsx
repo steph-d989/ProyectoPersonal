@@ -3,7 +3,7 @@ import CardJuegos from "./CardJuegos";
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { v4 as uuidv4 } from 'uuid'; // Importa uuid
+import { v4 as uuidv4 } from 'uuid'; 
 
 const Catalogo = () => {
   const [juegos, setJuegos] = useState([]);
@@ -21,16 +21,15 @@ const Catalogo = () => {
         if (resp.ok) {
           const data = await resp.json();
           
-          // Añade un identificador único si no existe en los datos
           const juegosConId = data.map(juego => ({
             ...juego,
-            id: juego.id || uuidv4() // Asigna un id único si no tiene
+            id: juego.id || uuidv4() 
           }));
 
           setJuegos(juegosConId);
           setJuegosFiltrados(juegosConId);
         } else {
-          const errorText = await resp.text(); // Obtén el texto del error
+          const errorText = await resp.text(); 
           throw new Error(`Error al obtener los juegos: ${errorText}`);
         }
       } catch (error) {
