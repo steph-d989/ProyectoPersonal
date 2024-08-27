@@ -4,7 +4,7 @@
  * @namespace FuncionesUsuario
  */
 
-const pool = require('../config/db_pgsql');
+const supabase = require('../config/db_supa');
 const queries = require('../queries/usuarios.queries');
 
 /**
@@ -17,20 +17,19 @@ const queries = require('../queries/usuarios.queries');
  * @throws {Error} Error de consulta a la BBDD
  */
 const crearUsuario = async (entry) => {
-    let { nombre, email, pass_hash } = entry;
-    let client, result;
+    const { nombre, email, pass_hash } = entry;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.crearUsuario, [nombre, email, pass_hash ])
-        console.log(data);
-        result = data.rowCount;
+        const { data, error } = await supabase
+            .from('usuarios')
+            .insert([{ nombre, email, pass_hash }]);
+
+        if (error) throw error;
+
+        return data.length; // El número de filas insertadas.
     } catch (err) {
         console.log(err);
         throw err;
-    } finally {
-        client.release();
     }
-    return result
 };
 
 /**
@@ -43,18 +42,19 @@ const crearUsuario = async (entry) => {
  * @throws {Error} Error de consulta a la BBDD
  */
 const borrarUsuario = async (email) => {
-    let client, result;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.borrarUsuario, [email])
-        result = data.rowCount;
+        const { data, error } = await supabase
+            .from('usuarios')
+            .delete()
+            .eq('email', email);
+
+        if (error) throw error;
+
+        return data.length; // El número de filas eliminadas.
     } catch (err) {
         console.log(err);
         throw err;
-    } finally {
-        client.release();
     }
-    return result
 };
 
 /**
@@ -66,18 +66,18 @@ const borrarUsuario = async (email) => {
  * @throws {Error} Error de consulta a la BBDD
  */
 const obtenerUsuarios = async () => {
-    let client, result;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.obtenerUsuarios)
-        result = data.rows;
+        const { data, error } = await supabase
+            .from('usuarios')
+            .select('*');
+
+        if (error) throw error;
+
+        return data; // El array con todos los usuarios.
     } catch (err) {
         console.log(err);
         throw err;
-    } finally {
-        client.release();
     }
-    return result
 };
 
 /**
@@ -89,19 +89,20 @@ const obtenerUsuarios = async () => {
  * @throws {Error} Error de consulta a la BBDD
  */
 const obtenerUsuariosPaginacion = async (pagina, porPagina) => {
-    let client, result;
+    const offset = (pagina - 1) * porPagina;
     try {
-        client = await pool.connect();
-        const offset = (pagina - 1) * porPagina
-        const data = await client.query(queries.obtenerUsuariosPaginacion, [porPagina, offset])
-        result = data.rows;
+        const { data, error } = await supabase
+            .from('usuarios')
+            .select('*')
+            .range(offset, offset + porPagina - 1);
+
+        if (error) throw error;
+
+        return data; // El array con los usuarios para la página solicitada.
     } catch (err) {
         console.log(err);
         throw err;
-    } finally {
-        client.release();
     }
-    return result
 };
 
 /**
@@ -114,18 +115,19 @@ const obtenerUsuariosPaginacion = async (pagina, porPagina) => {
  * @throws {Error} Error de consulta a la BBDD
  */
 const obtenerUsuariosEmail = async (email) => {
-    let client, result;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.obtenerUsuariosEmail, [email])
-        result = data.rows;
+        const { data, error } = await supabase
+            .from('usuarios')
+            .select('*')
+            .eq('email', email);
+
+        if (error) throw error;
+
+        return data; // El array con el usuario seleccionado.
     } catch (err) {
         console.log(err);
         throw err;
-    } finally {
-        client.release();
     }
-    return result || [];
 };
 
 /**
@@ -139,18 +141,19 @@ const obtenerUsuariosEmail = async (email) => {
  */
 const editarUsuario = async (entry) => {
     const { rol, email } = entry;
-    let client, result;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.editarRol, [rol, email]);
-        result = { rowCount: data.rowCount, email };
+        const { data, error } = await supabase
+            .from('usuarios')
+            .update({ rol })
+            .eq('email', email);
+
+        if (error) throw error;
+
+        return { rowCount: data.length, email }; // Número de filas modificadas.
     } catch (err) {
         console.log(err);
         throw err;
-    } finally {
-        client.release();
     }
-    return result
 };
 
 /**
@@ -164,18 +167,19 @@ const editarUsuario = async (entry) => {
  */
 const editarPass = async (entry) => {
     const { pass_hash, email } = entry;
-    let client, result;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.editarPass, [pass_hash, email])
-        result = { rowCount: data.rowCount, email };
+        const { data, error } = await supabase
+            .from('usuarios')
+            .update({ pass_hash })
+            .eq('email', email);
+
+        if (error) throw error;
+
+        return { rowCount: data.length, email }; // Número de filas modificadas.
     } catch (err) {
         console.log(err);
         throw err;
-    } finally {
-        client.release();
     }
-    return result
 };
 
 module.exports = {

@@ -4,7 +4,7 @@
  * @namespace FuncionesReservas
  */
 
-const pool = require('../config/db_pgsql');
+const supabase = require('../config/db_supa');
 const queries = require('../queries/reservas.queries');
 
 /**
@@ -18,18 +18,18 @@ const queries = require('../queries/reservas.queries');
  */
 const crearReserva = async (entry) => {
     const { email, nombre, fecha_devolucion } = entry;
-    let client, result;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.crearReserva, [email, nombre, fecha_devolucion])
-        result = data.rowCount;
+        const { data, error } = await supabase
+            .from('reservas')
+            .insert([{ email, nombre, fecha_devolucion }]);
+
+        if (error) throw error;
+
+        return data.length; // Devuelve el número de reservas creadas
     } catch (err) {
         console.log(err);
         throw err;
-    } finally {
-        client.release();
     }
-    return result
 };
 
 /**
@@ -43,22 +43,21 @@ const crearReserva = async (entry) => {
  * @throws {Error} Error de consulta a la BBDD.
  */
 const borrarReserva = async (entry) => {
-    const { email, juego_nombre } = entry;
-    let client, result;
+    const { email, nombre } = entry;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.borrarReserva, [email, juego_nombre]);
-        result = data.rowCount;
+        const { data, error } = await supabase
+            .from('reservas')
+            .delete()
+            .match({ email, nombre });
+
+        if (error) throw error;
+
+        return data.length; // Devuelve el número de reservas eliminadas
     } catch (err) {
         console.log("Error al borrar la reserva:", err);
         throw err;
-    } finally {
-        client.release();
     }
-    return result;
 };
-
-
 
 /**
  * Descripción: Obtiene las reservas de un usuario en base a su correo electrónico.
@@ -70,18 +69,38 @@ const borrarReserva = async (entry) => {
  * @throws {Error} Si ocurre un error al obtener los datos.
  */
 const obtenerReservasEmail = async (email) => {
-    let client, result;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.obtenerReservasEmail, [email])
-        result = data.rows;
+        // Primero, obtenemos el usuario para obtener su ID.
+        const { data: usuarioData, error: usuarioError } = await supabase
+            .from('usuarios')
+            .select('usuario_id')
+            .eq('email', email)
+            .single(); // Asumimos que el email es único
+
+        if (usuarioError) throw usuarioError;
+
+        const usuarioId = usuarioData?.usuario_id;
+
+        if (!usuarioId) return []; // Si no se encuentra el usuario, devolvemos un array vacío
+
+        // Ahora obtenemos las reservas del usuario utilizando el ID del usuario.
+        const { data: reservasData, error: reservasError } = await supabase
+            .from('reservas')
+            .select(`
+                fecha_reserva,
+                fecha_devolucion,
+                juegos (nombre AS juego_nombre),
+                usuarios (nombre AS usuario_nombre)
+            `)
+            .eq('usuario_id', usuarioId);
+
+        if (reservasError) throw reservasError;
+
+        return reservasData; // Devuelve los datos de las reservas
     } catch (err) {
         console.log(err);
         throw err;
-    } finally {
-        client.release();
     }
-    return result
 };
 
 module.exports = {
@@ -104,4 +123,4 @@ crearReserva(objUser).then(data=>console.log(data)); */
     }
 
 borrarReserva(objUser).then(data=>console.log(data));   */
-//obtenerReservasEmail('steph_d@hotmail.com').then(data=>console.log(data));
+obtenerReservasEmail('steph_d@hotmail.com').then(data=>console.log(data));

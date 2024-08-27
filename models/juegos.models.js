@@ -5,7 +5,7 @@
  */
 
 
-const pool = require('../config/db_pgsql');
+const supabase = require('../config/db_supa');
 const queries = require('../queries/juegos.queries');
 
 
@@ -20,19 +20,30 @@ const queries = require('../queries/juegos.queries');
  */
 const crearJuego = async (entry) => {
     let { nombre, descripcion, genero, numero_jugadores_min, numero_jugadores_max, edad_recomendada, tiempo_juego, video_url, imagen } = entry;
-    let client, result;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.crearJuego, [nombre, descripcion, genero, numero_jugadores_min, numero_jugadores_max, edad_recomendada, tiempo_juego, video_url, imagen])
-        console.log(data);
-        result = data.rowCount;
-    } catch (err) {
-        console.log(err);
+        const { data, error } = await supabase
+          .from('juegos')
+          .insert([
+            { 
+              nombre, 
+              descripcion, 
+              genero, 
+              numero_jugadores_min, 
+              numero_jugadores_max, 
+              edad_recomendada, 
+              tiempo_juego, 
+              video_url, 
+              imagen 
+            }
+          ]);
+    
+        if (error) throw error;
+    
+        return data.length; // Devuelve el número de juegos creados
+      } catch (err) {
+        console.error('Error creating game:', err);
         throw err;
-    } finally {
-        client.release();
-    }
-    return result
+      }
 };
 
 /**
@@ -45,19 +56,20 @@ const crearJuego = async (entry) => {
  * @throws {Error} Error de consulta a la BBDD
  */
 const borrarJuego = async (nombre) => {
-    let client, result;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.borrarJuego, [nombre])
-        result = data.rowCount;
+      const { data, error } = await supabase
+        .from('juegos')
+        .delete()
+        .eq('nombre', nombre);
+  
+      if (error) throw error;
+  
+      return data.length; // Devuelve el número de juegos eliminados
     } catch (err) {
-        console.log(err);
-        throw err;
-    } finally {
-        client.release();
+      console.error('Error deleting game:', err);
+      throw err;
     }
-    return result
-};
+  };
 
 /**
  * Descripción: Esta función muestra a todos los usuarios de la tabla users
@@ -68,19 +80,20 @@ const borrarJuego = async (nombre) => {
  * @throws {Error} Error de consulta a la BBDD
  */
 const obtenerJuegos = async () => {
-    let client, result;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.obtenerJuegos)
-        result = data.rows;
+      const { data, error } = await supabase
+        .from('juegos')
+        .select('*');
+  
+      if (error) throw error;
+  
+      return data; // Devuelve el array de juegos
     } catch (err) {
-        console.log(err);
-        throw err;
-    } finally {
-        client.release();
+      console.error('Error fetching games:', err);
+      throw err;
     }
-    return result
-};
+  };
+  
 
 /**
  * Descripción: Esta función muestra a todos los juegos de la tabla juegos
@@ -91,19 +104,21 @@ const obtenerJuegos = async () => {
  * @throws {Error} Error de consulta a la BBDD
  */
 const obtenerJuegosNombre = async () => {
-    let client, result;
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.obtenerJuegosNombre)
-        result = data.rows;
+        const { data, error } = await supabase
+            .from('juegos')
+            .select('*')
+            .order('nombre', { ascending: true });
+
+        if (error) throw error;
+
+        return data; 
     } catch (err) {
-        console.log(err);
+        console.error('Error fetching games by name:', err);
         throw err;
-    } finally {
-        client.release();
     }
-    return result
 };
+
 
 /**
  * Descripción: Esta función muestra a 10 usuarios de la tabla usuarios
@@ -114,20 +129,21 @@ const obtenerJuegosNombre = async () => {
  * @throws {Error} Error de consulta a la BBDD
  */
 const obtenerJuegosPaginacion = async (pagina, porPagina) => {
-    let client, result;
     try {
-        client = await pool.connect();
-        const offset = (pagina - 1) * porPagina;
-        const data = await client.query(queries.obtenerJuegosPaginacion, [pagina, porPagina]);
-        result = data.rows;
+      const { data, error } = await supabase
+        .from('juegos')
+        .select('*')
+        .range((pagina - 1) * porPagina, pagina * porPagina - 1);
+  
+      if (error) throw error;
+  
+      return data;
     } catch (err) {
-        console.log(err);
-        throw err;
-    } finally {
-        client.release();
+      console.error('Error fetching games with pagination:', err);
+      throw err;
     }
-    return result;
-};
+  };
+  
 
 /**
  * Descripción: Esta función edita el campo role_name de la tabla Roles
@@ -140,19 +156,22 @@ const obtenerJuegosPaginacion = async (pagina, porPagina) => {
  */
 const editarDisponibilidad = async (entry) => {
     const { nombre, disponibilidad } = entry;
-    let client, result;
+    
     try {
-        client = await pool.connect();
-        const data = await client.query(queries.editarDisponibilidad, [nombre, disponibilidad])
-        result = data.rowCount;
+      const { data, error } = await supabase
+        .from('juegos')
+        .update({ disponibilidad })
+        .eq('nombre', nombre);
+  
+      if (error) throw error;
+  
+      return data.length; // Devuelve el número de juegos actualizados
     } catch (err) {
-        console.log(err);
-        throw err;
-    } finally {
-        client.release();
+      console.error('Error updating availability:', err);
+      throw err;
     }
-    return result
-};
+  };
+  
 
 module.exports = {
     crearJuego,
