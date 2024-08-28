@@ -25,7 +25,7 @@ const crearUsuario = async (entry) => {
 
         if (error) throw error;
 
-        return data.length; // El número de filas insertadas.
+        return data ? data.length : 0;
     } catch (err) {
         console.log(err);
         throw err;
@@ -193,14 +193,14 @@ module.exports = {
 }
 
 //PRUEBAS
-/*     const objUser = {
-        nombre: 'Juanita de los Matorrales',
-        email: 'matorralesunidos@hotmail.com',
+/*      const objUser = {
+        nombre: 'Administrador',
+        email: 'administrador@adminsitrador.com',
         pass_hash: 'lkjhgfd987654',
-        rol: 'user'
+        rol: 'admin'
     }
 
-crearUsuario(objUser).then(data=>console.log(data)); */
+crearUsuario(objUser).then(data=>console.log(data));  */
 //borrarUsuario('steph_d@hotmail.com').then(data=>console.log(data));
 //obtenerUsuarios().then(data=>console.log(data))
 /* const objUpdate = {
