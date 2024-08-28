@@ -1,0 +1,45 @@
+/* BoardGameSpinner.css */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh; /* Ajusta según tus necesidades */
+}
+
+.spinner {
+  width: 50vh; /* Tamaño del spinner */
+  height: 50vh;
+  border: 4px solid transparent; /* Borde del spinner */
+  animation: bounce 1.5s ease infinite;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Espacio entre íconos */
+}
+
+.icon {
+  font-size: 150px; /* Tamaño de los íconos */
+  position: relative;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+/* Animación de salto */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0); /* Posición inicial y final */
+  }
+  50% {
+    transform: translateY(-50px); /* Salto hacia arriba */
+  }
+}
+
+/* Estilos para hacer que el salto sea intercalado */
+.icon:nth-child(odd) {
+  animation-delay: 0.2s; /* Retrasa los iconos impares */
+}
+
+.icon:nth-child(even) {
+  animation-delay: 0.4s; /* Retrasa los iconos pares */
+}
+
