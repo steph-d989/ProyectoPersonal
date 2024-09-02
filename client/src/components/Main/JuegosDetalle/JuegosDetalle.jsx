@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import BoardGameSpinner from "../BoardGameSpinner/BoardGameSpinner";
 
 
 const JuegosDetalle = () => {
@@ -60,7 +61,7 @@ const JuegosDetalle = () => {
   };
 
   if (!juego) {
-    return <div>Cargando...</div>;
+    return <div><BoardGameSpinner /></div>;
   }
 
 
