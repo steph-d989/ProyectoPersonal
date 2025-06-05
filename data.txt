@@ -55,7 +55,7 @@
     "tiempo_juego": "15 minutos",
     "disponibilidad": true,
     "video_url": "https://www.youtube.com/embed/YhMBBnMHw_g?si=6k0U0IwXgJv6v1fh",
-    "imagen": "https://www.espritjeu.com/upload/image/codenames-p-image-63199-grande.jpg"
+    "imagen": "https://cdn.shopify.com/s/files/1/0921/7330/products/1_50123a01-ba17-4b1b-a2fe-8bd24a12151a_900x900.jpg"
   },
   {
     "nombre": "Dominion",

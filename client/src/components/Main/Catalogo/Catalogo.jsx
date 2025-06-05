@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import CardJuegos from "./CardJuegos";
-import Typography from '@mui/material/Typography';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import Typography from "@mui/material/Typography";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import BoardGameSpinner from "../BoardGameSpinner/BoardGameSpinner";
-import { v4 as uuidv4 } from 'uuid'; 
+import { v4 as uuidv4 } from "uuid";
+import { supabase } from "../../../../src/supabaseClient";
 
 const Catalogo = () => {
   const [juegos, setJuegos] = useState([]);
@@ -15,31 +16,26 @@ const Catalogo = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [porPagina] = useState(10);
-  const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   useEffect(() => {
     const getJuegos = async () => {
+      setIsLoading(true);
       try {
-        console.log("Iniciando fetch de juegos...");
-        const resp = await fetch(`${API_URL}/juegos`);
-        console.log("Respuesta recibida:", resp.status);
-        if (resp.ok) {
-          const data = await resp.json();
-          console.log("Datos recibidos:", data);
-          
-          const juegosConId = data.map(juego => ({
-            ...juego,
-            id: juego.id || uuidv4() 
-          }));
+        const { data, error } = await supabase
+          .from("juegos")
+          .select("*");
 
-          setJuegos(juegosConId);
-          setJuegosFiltrados(juegosConId);
-        } else {
-          const errorText = await resp.text(); 
-          throw new Error(`Error al obtener los juegos: ${errorText}`);
-        }
+        if (error) throw error;
+
+        const juegosConId = data.map(juego => ({
+          ...juego,
+          id: juego.id || uuidv4()
+        }));
+
+        setJuegos(juegosConId);
+        setJuegosFiltrados(juegosConId);
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Error al obtener los juegos:", error.message);
         setError(error.message);
       } finally {
         setIsLoading(false);
@@ -50,37 +46,29 @@ const Catalogo = () => {
   }, []);
 
   useEffect(() => {
-    let juegosFiltrados = juegos;
+    let filtrados = juegos;
 
     if (filtroCategoria) {
-      juegosFiltrados = juegosFiltrados.filter(juego => juego.genero === filtroCategoria);
+      filtrados = filtrados.filter(j => j.genero === filtroCategoria);
     }
 
     if (busqueda) {
-      juegosFiltrados = juegosFiltrados.filter(juego =>
-        juego.nombre.toLowerCase().includes(busqueda.toLowerCase())
+      filtrados = filtrados.filter(j =>
+        j.nombre.toLowerCase().includes(busqueda.toLowerCase())
       );
     }
 
-    setJuegosFiltrados(juegosFiltrados);
+    setJuegosFiltrados(filtrados);
     setPagina(1);
   }, [filtroCategoria, busqueda, juegos]);
 
-  const handleChangeCategoria = (e) => {
-    setFiltroCategoria(e.target.value);
-  };
+  const handleChangeCategoria = (e) => setFiltroCategoria(e.target.value);
+  const handleChangeBusqueda = (e) => setBusqueda(e.target.value);
+  const handlePaginaChange = (e, value) => setPagina(value);
 
-  const handleChangeBusqueda = (e) => {
-    setBusqueda(e.target.value);
-  };
-
-  const handlePaginaChange = (event, value) => {
-    setPagina(value);
-  };
-
-  const indiceUltimoJuego = pagina * porPagina;
-  const indicePrimerJuego = indiceUltimoJuego - porPagina;
-  const juegosActuales = juegosFiltrados.slice(indicePrimerJuego, indiceUltimoJuego);
+  const indiceUltimo = pagina * porPagina;
+  const indicePrimero = indiceUltimo - porPagina;
+  const juegosActuales = juegosFiltrados.slice(indicePrimero, indiceUltimo);
 
   return (
     <div className="catalogo-container">
@@ -117,9 +105,11 @@ const Catalogo = () => {
       ) : (
         <>
           <div className="catalogo-lista">
-            {juegosActuales.map((juego) => <CardJuegos key={juego.id} juego={juego} />)}
+            {juegosActuales.map((juego) => (
+              <CardJuegos key={juego.id} juego={juego} />
+            ))}
           </div>
-          
+
           <div className="paginacion">
             <Stack spacing={2}>
               <Pagination
