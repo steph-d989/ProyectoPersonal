@@ -81,6 +81,7 @@ const Catalogo = () => {
             <option value="Familiar">Familiar</option>
             <option value="Aventura">Aventura</option>
             <option value="RPG">RPG</option>
+            <option value="Cooperativo">Cooperativo</option>
           </select>
         </div>
 
