@@ -21,21 +21,24 @@ const Catalogo = () => {
     const getJuegos = async () => {
       setIsLoading(true);
       try {
-        const { data, error } = await supabase
-          .from("juegos")
-          .select("*");
+        const { data, error } = await supabase.from("juegos").select("*");
+
+        console.log("🔍 DATA SUPABASE:", data);
+        console.log("❌ ERROR SUPABASE:", error);
 
         if (error) throw error;
 
-        const juegosConId = data.map(juego => ({
+        const juegosConId = data.map((juego) => ({
           ...juego,
-          id: juego.id || uuidv4()
+          id: juego.id || uuidv4(),
         }));
+
+        console.log("✅ JUEGOS CON ID:", juegosConId);
 
         setJuegos(juegosConId);
         setJuegosFiltrados(juegosConId);
       } catch (error) {
-        console.error("Error al obtener los juegos:", error.message);
+        console.error("❗ Error al obtener los juegos:", error.message);
         setError(error.message);
       } finally {
         setIsLoading(false);
@@ -49,14 +52,20 @@ const Catalogo = () => {
     let filtrados = juegos;
 
     if (filtroCategoria) {
-      filtrados = filtrados.filter(j => j.genero === filtroCategoria);
+      filtrados = filtrados.filter(
+        (j) => j.genero?.toLowerCase() === filtroCategoria.toLowerCase()
+      );
     }
 
     if (busqueda) {
-      filtrados = filtrados.filter(j =>
-        j.nombre.toLowerCase().includes(busqueda.toLowerCase())
+      filtrados = filtrados.filter((j) =>
+        j.nombre?.toLowerCase().includes(busqueda.toLowerCase())
       );
     }
+
+    console.log("📂 Filtro categoría:", filtroCategoria);
+    console.log("🔎 Texto búsqueda:", busqueda);
+    console.log("🎯 Juegos filtrados:", filtrados);
 
     setJuegosFiltrados(filtrados);
     setPagina(1);
