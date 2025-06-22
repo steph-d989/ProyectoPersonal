@@ -6,8 +6,8 @@
   "scripts": {
     "docs": "jsdoc -c jsdoc.json",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "start": "node index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
