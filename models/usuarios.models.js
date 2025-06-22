@@ -5,6 +5,8 @@
  */
 
 const supabase = require('../config/db_supa');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const queries = require('../queries/usuarios.queries');
 
 /**
@@ -17,20 +19,35 @@ const queries = require('../queries/usuarios.queries');
  * @throws {Error} Error de consulta a la BBDD
  */
 const crearUsuario = async (entry) => {
-    const { nombre, email, pass_hash } = entry;
+    const { nombre, email, password } = entry;
+    const salt = await bcrypt.genSalt(10);
+    const pass_hash = await bcrypt.hash(password, salt);
+
     try {
         const { data, error } = await supabase
             .from('usuarios')
             .insert([{ nombre, email, pass_hash }]);
 
         if (error) throw error;
-
         return data ? data.length : 0;
+
     } catch (err) {
         console.log(err);
         throw err;
     }
 };
+
+const validarCredenciales = async ({ email, password }) => {
+    const { data, error } = await supabase
+        .from('usuarios')
+        .select('*').eq('email', email)
+        .single();
+    
+        if(error) throw error;
+        if(!data) return null;
+        const match = await bcrypt.compare(password, data.pass_hash);
+        return match? data : null;
+}
 
 /**
  * Descripción: Esta función elimina el usuario de la tabla usuarios
@@ -189,7 +206,8 @@ module.exports = {
     obtenerUsuariosPaginacion,
     obtenerUsuariosEmail,
     editarUsuario,
-    editarPass
+    editarPass,
+    validarCredenciales
 }
 
 //PRUEBAS

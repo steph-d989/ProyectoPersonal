@@ -6,6 +6,28 @@
 
 const usersEntry = require('../models/usuarios.models');
 
+const register = async (req, res) => {
+    let usuarios;
+    try {
+        usuarios = await usersEntry(req.body)
+        res.status(201).json({ message: 'Usuario creado', usuarios: { nombre: usuarios.nombre, email: usuarios.email } });
+    }catch(e){
+        res.status(500).json({ message: 'Error al crear usuario', error: e.message})
+    }
+}
+
+const login = async (req, res) => {
+    let usuarios;
+    try{
+        usuarios = await usersEntry.validarCredenciales(req.body);
+        if(!usuarios) return res.status(401).json({ error: 'Credenciales invalidas' });
+
+        const token = jwt.sign({ id: usuarios.id, email: usuarios.email, rol: usuarios.rol }, process.env.JWT_SECRET, process.env.JWT_EXPIRATION);
+        res.json({ token });
+        }catch(e){
+            res.status(500).json({ message: 'Error al iniciar sesion' })
+    }
+}
 
 /**
  * Descripción: Esta función llama desde la ruta /api/usuarios al modelo crearUsuario
@@ -138,7 +160,9 @@ module.exports = {
     obtenerUsuarios,
     borrarUsuario,
     editarUsuario,
-    editarPass
+    editarPass,
+    register,
+    login
 };
 
 
